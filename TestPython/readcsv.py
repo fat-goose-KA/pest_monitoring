@@ -33,16 +33,16 @@ def readData(fileList):
     # return the list 
     return lines
 
-#파일 저장
-def saveData(data, clusterNum,dirName="C:/Users/master/Desktop/20190629/Smarf"):
+#save file
+def saveData(data, clusterNum,dirName="/Users/moojin/Dropbox/Codes/python/code_combining"):
 
     # Set the file dierectory
     k=clusterNum+1
     if k<10:
-        openFileName = dirName +"/MothData/BugData" +"0" + str(k) + ".csv"
+        openFileName = dirName +"/MothData/MothData" +"0" + str(k) + ".csv"
     else:
-        openFileName = dirName +"/MothData/BugData" + str(k) + ".csv"
-    f=open(openFileName, 'a',newline='')
+        openFileName = dirName +"/MothData/MothData" + str(k) + ".csv"
+    f=open(openFileName, 'a')#,newline='')
     
     wr = csv.writer(f)
     # Conver the data to one row data.

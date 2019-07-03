@@ -7,49 +7,41 @@ from readcsv import readData
 from getColor import getColor
 from getColor import getColor2
 from callee import roi
+# print(os.getcwd())
+#get dir list by os dir function
+filedir=os.getcwd()+'/MothData/'
+dirlist=os.listdir(filedir)
+fileList=[]
+for i in dirlist:
+    if i.find('csv') is not -1:
+        if i.find('Mothdata') is not -1:
+            fileList.append(filedir+i)
+    # print(filedir+i)
+# roi("./test.png",5000)
+# print (fileList) #:: current directory
+
+# Get Saved Moth data
+dist_data_total=readData(fileList)
+
+# Get Color from moth data
+dist_avg_data_total=[]
+nonfileList=["/Users/moojin/Dropbox/Codes/python/code_combining/NonBugData/NonBugData01.csv"]  ##change later
+dist_non_data_total=readData(nonfileList)
+# dist_non_data_total=[[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]]
+##@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@##
+##########################################################
+##change below part using url to get image from python,
+## or get dir?##
+## getColor2(filename, clusternum, sizethreshold)
+datalist=getColor2(os.getcwd()+"/Picture/Test/03.png",5,5000)
+dist_avg_data_total=[]
+dist_avg_non_data_total=[]
+for data in datalist:
 
 
-# return value (a,b,c)
-# a: Message
-# b: The number of Specific bug in the Picture
-# c: if the function is failed to run completely - return False.
-#    if the function is succeed to run           - return True
-
-def classifyMoth(dataDir,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
-    
-    # Set the test value
-    dirName = os.getcwd()       ##check is it right?
-    print(dirName)
-    print("right?")
-    # Filter the Error
-    if NumberofType != len(BugName):
-        return ("Number of Type and Numberof BugName are not same",0,False)
-
-
-    # Get Saved Moth data
-    filedir=os.getcwd()+'/MothData/'
-    dirlist=os.listdir(filedir)
-    fileList=[]
-    for i in dirlist:
-        if i.find('csv') is not -1:
-            if i.find('Mothdata') is not -1:
-                fileList.append(filedir+i)
-        # print(filedir+i)    
-    dist_data_total=readData(fileList)
-
-    nonfileList=[]
-    #dist_non_data_total=readData(nonfileList)
-    dist_non_data_total=[[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]]
-    # Get Color from moth data
-    dist_avg_data_total=[]
-    dist_avg_non_data_total=[]
-    #####################################!!!!!!!!
-    dataDir=dirName+"Picture/Test/03.png"
-
-
-    data=getColor(dataDir,5)
     newdata=np.array(data)
-
+    
+    # Calculate the avearage of the existing data.
     # Calculate the avearage of the existing data.
     for dist_data in dist_data_total:
         dist_avg_data=[]
@@ -69,6 +61,7 @@ def classifyMoth(dataDir,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
         if dist_non_data[0]==[]:
             print("")
             break
+        print(dist_non_data)
         y = dist_non_data.astype(np.float)
         dist_avg_non_data=np.average(y,axis=0)
         avglist =[]
@@ -122,11 +115,11 @@ def classifyMoth(dataDir,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
     for j in bestCombn:
         newdata.append(data[j])
     
-    if Save == True & cluster != -1:
+    if  False & cluster != -1:
         saveData(newdata,cluster)
 
     # return the meassage informing type of bug
     if cluster == -1:
-        return("Meaningless",0 ,True)
+        print("Meaningless")#,0 ,True)
     else:
-        return("The moth is "+BugName[cluster],1,True)    
+        print("The moth is "+str(cluster+))#,True)    
