@@ -45,8 +45,6 @@ def getColor2(data,clusterNum,sizethreshold,hlist=[[0,180]],sup=254,sdown=1,vup=
         start = time.time() 
 
         # Read the data from the directory named data.
-        src = cv2.imread(data, cv2.IMREAD_COLOR)
-
         # Convert the image to hsv format.
         hsv = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
         h,s,v = cv2.split(hsv)
@@ -66,6 +64,10 @@ def getColor2(data,clusterNum,sizethreshold,hlist=[[0,180]],sup=254,sdown=1,vup=
 
         # openCV get a image as a BGR format
         # Convert the image to RGB format
+        cv2.imshow("letmesee",bgr)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()     #for check whether filtering has proccessed well
+
         rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
 
         # Reshape for applying Kmean function to the image.
@@ -98,13 +100,13 @@ def getColor2(data,clusterNum,sizethreshold,hlist=[[0,180]],sup=254,sdown=1,vup=
 
 
         # # show our color bart
-        # hist = centroid_histogram(clt)
-        # bar = plot_colors(hist, clt.cluster_centers_)
+        hist = centroid_histogram(clt)
+        bar = plot_colors(hist, clt.cluster_centers_)
         
-        # plts.figure()
-        # plts.axis("off")
-        # plts.imshow(bar)
-        # plts.show()
+        plts.figure()
+        plts.axis("off")
+        plts.imshow(bar)
+        plts.show()
         result.append(clt.cluster_centers_)
     return result       
 def getColor(data,clusterNum,hlist=[[0,180]],sup=255,sdown=0,vup=255,vdown=0):

@@ -1,3 +1,4 @@
+import os
 import csv
 import numpy as np
 
@@ -34,7 +35,7 @@ def readData(fileList):
     return lines
 
 #save file
-def saveData(data, clusterNum,dirName="/Users/moojin/Dropbox/Codes/python/code_combining"):
+def saveData(data, clusterNum,dirName=os.getcwd()):
 
     # Set the file dierectory
     k=clusterNum+1

@@ -25,19 +25,32 @@ dist_data_total=readData(fileList)
 
 # Get Color from moth data
 dist_avg_data_total=[]
-nonfileList=["/Users/moojin/Dropbox/Codes/python/code_combining/NonBugData/NonBugData01.csv"]  ##change later
+#nonfileList=["/Users/moojin/Dropbox/Codes/python/code_combining/NonBugData/NonBugData01.csv"]  ##change later
+_filedir=os.getcwd()+'/NonBugData/'
+_dirlist=os.listdir(_filedir)
+nonfileList=[]
+for i in _dirlist:
+    if i.find('csv') is not -1:
+        if i.find('NonBug') is not -1:
+            nonfileList.append(_filedir+i)
+#if nonfileList is empty -> error message
 dist_non_data_total=readData(nonfileList)
 # dist_non_data_total=[[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]]
 ##@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@##
 ##########################################################
 ##change below part using url to get image from python,
 ## or get dir?##
-## getColor2(filename, clusternum, sizethreshold)
-datalist=getColor2(os.getcwd()+"/Picture/Test/03.png",5,5000)
+## getColor2(filename, clusternum, sizethreshold) 
+############################################################################################################
+############################################################################################################
+## change manually for now, but change this one when using raspberry pi
+datalist=getColor2("/Users/moojin/Dropbox/Codes/python/moth_color_inversion/test.png",5,5000)
+############################################################################################################
+############################################################################################################
 dist_avg_data_total=[]
 dist_avg_non_data_total=[]
 for data in datalist:
-
+    print(data)
 
     newdata=np.array(data)
     
@@ -122,4 +135,4 @@ for data in datalist:
     if cluster == -1:
         print("Meaningless")#,0 ,True)
     else:
-        print("The moth is "+str(cluster+))#,True)    
+        print("The moth is "+str(cluster))#,True)    

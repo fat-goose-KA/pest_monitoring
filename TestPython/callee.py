@@ -58,6 +58,13 @@ def roi(img_file, thresh_size):  #img_file: file name
         cv2.imshow("sub",subimg)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+    # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`")
+    # print(result)
+    # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~`")
+    for i in result:
+        cv2.imshow("return",i)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
     return result
 # roi("./6.jpg",5000)
 # roi("./test.png",5000)
