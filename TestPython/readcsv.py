@@ -1,5 +1,6 @@
 import os
 import csv
+import platform
 import numpy as np
 
 
@@ -36,13 +37,17 @@ def readData(fileList):
 
 #save file
 def saveData(data, clusterNum,dirName=os.getcwd()):
-
+    
+    if platform.system() == "Windows":
+        dirName=  dirName.replace("\\","/")
+    
     # Set the file dierectory
-    k=clusterNum+1
-    if k<10:
-        openFileName = dirName +"/MothData/MothData" +"0" + str(k) + ".csv"
+    if platform.system() == "Windows":
+        dirName =  dirName.replace("\\","/")
+    if clusterNum<10:
+        openFileName = dirName +"/MothData/MothData" +"0" + str(clusterNum) + ".csv"
     else:
-        openFileName = dirName +"/MothData/MothData" + str(k) + ".csv"
+        openFileName = dirName +"/MothData/MothData" + str(clusterNum) + ".csv"
     f=open(openFileName, 'a')#,newline='')
     
     wr = csv.writer(f)

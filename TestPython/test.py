@@ -12,6 +12,4 @@ import numpy as np
 # print(data)
 # readData(["C:/Users/master/Desktop/20190629/Smarf/MothData/Mothdata01.csv"])
 # print(data)
-for i in itertools.permutations([1,2,3,4,0],5):
-    for j,k in enumerate(i):
-        print (j,k)
+print("/")
