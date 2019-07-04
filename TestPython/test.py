@@ -6,12 +6,12 @@ from finalcode import combined_code
 import csv
 import itertools
 import matplotlib.pyplot as plt
-import matplotlib as mpl
+import matplotlib as mpl 
 
 import numpy as np
 
 
-a,b,c=combined_code(data="C:/Users/master/Desktop/20190629/Smarf/Picture/Test/03.png",sizethreshold=5000)
+a,b,c=combined_code(data="C:/Users/master/Desktop/Test2.jpg",sizethreshold=300,imageShow=True)
 
 
 print("==========")
@@ -21,4 +21,5 @@ print(b)
 print("==========")
 print(c)
 print("==========")
+
  

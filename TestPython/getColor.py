@@ -35,10 +35,10 @@ def plot_colors(hist, centroids):
         startX = endX
 
     # return the bar chart
-    return bar
+    return bar 
 
-def getColor2(data,sizethreshold,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
-    each_labeled=roi(data,sizethreshold)
+def getColor2(data,sizethreshold,imageShow,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
+    each_labeled=roi(data,sizethreshold,imageShow)
     result=[]
     for src in each_labeled:
         # Check the initial time
@@ -103,10 +103,11 @@ def getColor2(data,sizethreshold,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vu
         hist = centroid_histogram(clt)
         bar = plot_colors(hist, clt.cluster_centers_)
         
-        plts.figure()
-        plts.axis("off")
-        plts.imshow(bar)
-        plts.show()
+        if imageShow==True:
+            plts.figure()
+            plts.axis("off")
+            plts.imshow(bar)
+            plts.show()
         result.append(clt.cluster_centers_)
     return result       
 def getColor(data,clusterNum,hlist=[[0,180]],sup=255,sdown=0,vup=255,vdown=0):

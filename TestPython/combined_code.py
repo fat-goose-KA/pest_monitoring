@@ -70,7 +70,6 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
 
 
         for data in datalist:
-            print(data)
 
             newdata=np.array(data)
             
@@ -79,7 +78,7 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
             for dist_data in dist_data_total:
                 dist_avg_data=[]
                 if dist_data[0]==[]:
-                    print("")
+                    print("Empty Distribution")
                     break
                 y = dist_data.astype(np.float)
                 dist_avg_data=np.average(y,axis=0)

@@ -1,6 +1,6 @@
 import cv2;
 import numpy as np;
-def roi(img_file, thresh_size):  #img_file: file name
+def roi(img_file, thresh_size,imageShow):  #img_file: file name
     im_in = cv2.imread(img_file, cv2.IMREAD_GRAYSCALE)
     if im_in is None:
         raise NameError('in roi function, incorrect filename, address')
@@ -49,22 +49,25 @@ def roi(img_file, thresh_size):  #img_file: file name
         x=output[2][i,cv2.CC_STAT_WIDTH]
         y=output[2][i,cv2.CC_STAT_HEIGHT]
         cv2.rectangle(im_otsu,(x0,y0),(x0+x,y0+y),(255,255,255),10)
-        cv2.imshow("otsu",im_otsu)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        if imageShow == True:
+            cv2.imshow("otsu",im_otsu)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
         # subimg=im_origin[x:x+x0, y:y+y0]
         subimg=im_origin[y0:y+y0,x0:x+x0]
         result.append(subimg)
-        cv2.imshow("sub",subimg)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        if imageShow == True:
+            cv2.imshow("sub",subimg)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
     # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`")
     # print(result)
     # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~`")
-    for i in result:
-        cv2.imshow("return",i)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+    if imageShow == True:
+        for i in result:
+            cv2.imshow("return",i)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
     return result
 # roi("./6.jpg",5000)
 # roi("./test.png",5000)
