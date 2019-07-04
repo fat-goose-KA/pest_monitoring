@@ -42,8 +42,13 @@ def combined_code_url (data_url, sizethreshold,hlist=[[0,180]],sup=254,sdown=1,v
 
     now=time.localtime()
     outputFileName =str(now.tm_year)+"_"+str(now.tm_mon)+"_"+str(now.tm_mday)+"_"+str(now.tm_hour)+"_"+str(now.tm_min)+"_"+str(now.tm_sec)+"."+ "jpg"
-    filedir=os.getcwd()+'/Picture/MJPG/'+outputFileName
-    cv2.imshow("filedir",data)
+    filedir=os.getcwd()
+    strlen=len(filedir)
+    filedir=filedir[0:strlen-11]
+    filedir=filedir+'/Picture/MJPG/'+outputFileName
+    cv2.imshow(filedir,data)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
     cv2.imwrite(filedir, data)
     a1, b1, c1=combined_code(filedir,sizethreshold,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"])

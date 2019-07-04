@@ -1,6 +1,7 @@
 import cv2;
 import numpy as np;
 def roi(img_file, thresh_size,imageShow):  #img_file: file name
+    # print(img_file)
     im_in = cv2.imread(img_file, cv2.IMREAD_GRAYSCALE)
     if im_in is None:
         raise NameError('in roi function, incorrect filename, address or empty file')
