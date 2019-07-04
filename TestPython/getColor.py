@@ -37,7 +37,7 @@ def plot_colors(hist, centroids):
     # return the bar chart
     return bar
 
-def getColor2(data,clusterNum,sizethreshold,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
+def getColor2(data,sizethreshold,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     each_labeled=roi(data,sizethreshold)
     result=[]
     for src in each_labeled:
