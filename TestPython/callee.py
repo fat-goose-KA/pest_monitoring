@@ -3,7 +3,7 @@ import numpy as np;
 def roi(img_file, thresh_size,imageShow):  #img_file: file name
     im_in = cv2.imread(img_file, cv2.IMREAD_GRAYSCALE)
     if im_in is None:
-        raise NameError('in roi function, incorrect filename, address')
+        raise NameError('in roi function, incorrect filename, address or empty file')
     th, im_th = cv2.threshold(im_in, 150, 255, cv2.THRESH_BINARY_INV)
     im_floodfill = im_in.copy()
     h, w = im_floodfill.shape[:2]
