@@ -27,7 +27,9 @@ def classifyMoth(dataDir,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
 
 
     # Get Saved Moth data
-    filedir=os.getcwd()+'/MothData/'
+    filedir=os.getcwd()
+    strlen=len(filedir)
+    filedir=filedir[0:strlen-11]+'/MothData/'
     dirlist=os.listdir(filedir)
     fileList=[]
     for i in dirlist:
@@ -44,8 +46,8 @@ def classifyMoth(dataDir,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
     dist_avg_data_total=[]
     dist_avg_non_data_total=[]
     #####################################!!!!!!!!
-    dataDir=dirName+"Picture/Test/03.png"
-
+    dataDir=dirName[0:strlen-11]+"Picture/Test/03.png"
+    
 
     data=getColor(dataDir,5)
     newdata=np.array(data)

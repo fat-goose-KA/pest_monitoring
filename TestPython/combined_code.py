@@ -25,7 +25,10 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
             return ("Number of Type and Numberof BugName are not same",0,False)
 
         # get dir list by os dir function
-        filedir=os.getcwd()+'/MothData/'
+        
+        filedir=os.getcwd()
+        strlen=len(filedir)
+        filedir=os.getcwd()[0:strlen-11]+'/MothData/'
         dirlist=os.listdir(filedir)
         fileList=[]
         for i in dirlist:
@@ -42,7 +45,7 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
         # Get Color from moth data
         dist_avg_data_total=[]
         #nonfileList=["/Users/moojin/Dropbox/Codes/python/code_combining/NonBugData/NonBugData01.csv"]  ##change later
-        _filedir=os.getcwd()+'/NonBugData/'
+        _filedir=os.getcwd()[0:strlen-11]+'/NonBugData/'
         if platform.system() == "Windows":
             _filedir=  _filedir.replace("\\","/")
 
