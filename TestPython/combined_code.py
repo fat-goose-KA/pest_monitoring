@@ -21,6 +21,7 @@ from callee import roi
 # print(os.getcwd())
 def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
     try:
+        
         if NumberofType != len(BugName):
             return ("Number of Type and Numberof BugName are not same",0,False)
 
@@ -73,7 +74,6 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
 
 
         for data in datalist:
-
             newdata=np.array(data)
             
             # Calculate the avearage of the existing data.
@@ -144,7 +144,7 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
                     break
 
             # change the new image data to
-            if clusterDistance>80000:
+            if clusterDistance>15000:
                 cluster =-1
             newdata=[]
             for j in bestCombn:
@@ -156,6 +156,8 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
             # return the meassage informing type of bug
             if cluster != -1:
                 numberofBug[cluster-1] = numberofBug[cluster-1]+1
+                # path = "C:/Users/master/Desktop/20190629/Smarf/Result/" +str(cluster)
+                # cv2.imwrite(os.path.join(path , str(numberofBug[cluster-1])+'.jpg'), data) 
             
         returnmessage = ""
         for i,j in enumerate(BugName):

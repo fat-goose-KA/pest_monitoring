@@ -37,13 +37,12 @@ def plot_colors(hist, centroids):
     # return the bar chart
     return bar 
 
-def getColor2(data,sizethreshold,imageShow,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
+def getColor2(data,sizethreshold,imageShow,autoSetting=False,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     each_labeled=roi(data,sizethreshold,imageShow)
     result=[]
     for src in each_labeled:
         # Check the initial time
         start = time.time() 
-
         # Read the data from the directory named data.
         # Convert the image to hsv format.
         hsv = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
@@ -52,12 +51,64 @@ def getColor2(data,sizethreshold,imageShow,clusterNum=5,hlist=[[0,180]],sup=254,
         # Mask the image by hsv input condition
         # v and s has one interval 
         # h has sevral interval and it returns the union of the interval. 
+        if autoSetting == True:
+            height, width, channels =src.shape
+            average=[]
+            total=height*2+width*2-4
+            color =[]
+            for i in range(0,height):
+                color.append( src[i][0])
+                color.append( src[i][width-1])
+            for i in range(0,width):
+                color.append( src[0][i])
+                color.append( src[height-1][i])
+            color = np.array(color)
+            maxrgb=np.median(color,axis=0)
+            r= maxrgb[2]
+            g= maxrgb[1]
+            b= maxrgb[0]
+            Cmax = max(r,g,b)
+            Cmin = min(r,g,b)
+            delta = Cmax-Cmin
+            if delta ==0:
+                mh=0
+            elif Cmax==r:
+                mh=30*(((g-b)/delta)%6)
+            elif Cmax==g:
+                mh=30*((b-r)/delta+2)
+            elif Cmax==b:
+                mh=30*((r-g)/delta+4)
+            
+            if Cmax==0:
+                ms=0
+            else:
+                ms=delta/Cmax*255
+
+            mv=Cmax
+
+            print(mh,ms,mv)
+            print("++++++++++++++++changed h,s,v+++++++++++++++")
+
+            hlist = [[mh+3,mh-3]]
+
+            if ms<40:
+                sdown = min(ms+10,40)
+            elif ms>220:
+                sup = max(ms-10,220)
+            if mv<40:
+                vdown = min(mv+10,40)
+            elif mv>220:
+                vup = max(mv-10,220)
+        print("")
+        print(hlist, sdown,sup,vdown,vup)
+        print("")
+
         mask = cv2.inRange(v,vdown,vup)
         mask2 = cv2.inRange(s,sdown,sup)
         mask3 = cv2.inRange(h,0,180)
         for i in hlist:
             mask3 = mask3 + cv2.inRange(h,i[0],i[1])
-        
+
         res = cv2.bitwise_and(src, src, mask=mask)
         res = cv2.bitwise_and(res, res, mask=mask2)
         bgr = cv2.bitwise_and(res, res, mask=mask3)
