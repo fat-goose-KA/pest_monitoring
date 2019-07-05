@@ -115,9 +115,10 @@ def getColor2(data,sizethreshold,imageShow,autoSetting=False,clusterNum=5,hlist=
 
         # openCV get a image as a BGR format
         # Convert the image to RGB format
-        # cv2.imshow("letmesee",bgr)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()     #for check whether filtering has proccessed well
+        if imageShow==True:
+            cv2.imshow("letmesee",bgr)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()     #for check whether filtering has proccessed well
 
         rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
 
@@ -154,12 +155,12 @@ def getColor2(data,sizethreshold,imageShow,autoSetting=False,clusterNum=5,hlist=
         hist = centroid_histogram(clt)
         bar = plot_colors(hist, clt.cluster_centers_)
         
-        # if imageShow==True:
-        #     plts.figure()
-        #     plts.axis("off")
-        #     plts.imshow(bar)
-        #     plts.show()
-        # result.append(clt.cluster_centers_)
+        if imageShow==True:
+            plts.figure()
+            plts.axis("off")
+            plts.imshow(bar)
+            plts.show()
+        result.append(clt.cluster_centers_)
     return result       
 def getColor(data,clusterNum,hlist=[[0,180]],sup=255,sdown=0,vup=255,vdown=0):
     
