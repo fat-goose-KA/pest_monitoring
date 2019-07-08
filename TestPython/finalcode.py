@@ -1,7 +1,8 @@
 from getColor import getColor2
 from combined_code import classifyMoth
-
+from roi_save_return import roi_save
 from save_as_csv import saveDataAsCsv
+from save import saveDataAsImage
 import time
 import os
 # import dlib
@@ -17,7 +18,7 @@ except: #python2
 def combined_code (data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"],newFile=False,saveImage=False):
 
-    each_labeled=roi(data,sizethreshold,imageShow=imageShow)
+    each_labeled=roi_save(data,sizethreshold,imageShow=imageShow)
 
     datalist=getColor2(each_labeled,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
     
