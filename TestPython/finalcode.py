@@ -1,5 +1,6 @@
 from getColor import getColor2
 from combined_code import classifyMoth
+from save_as_csv import saveDataAsCsv
 import time
 import os
 # import dlib
@@ -12,13 +13,16 @@ except: #python2
 
 
 
-def combined_code (data,sizethreshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
-,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"]):
+def combined_code (data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
+,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"],newFile=False):
 
     
-    datalist=getColor2(data,sizethreshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
+    datalist=getColor2(data,sizethreshold,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
     
     a1,b1,c1=classifyMoth(datalist,Save,NumberofType,BugName)
+
+    saveDataAsCsv(data=b1, bugName=BugName, newFile=newFile)
+
     return a1,b1,c1
 
 def url_to_image(url):

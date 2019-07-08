@@ -5,6 +5,7 @@ import matplotlib.pyplot as plts
 from callee import roi
 import time
 
+from roi_save_return import roi_save
 
 def centroid_histogram(clt):
     # grab the number of different clusters and create a histogram
@@ -37,8 +38,8 @@ def plot_colors(hist, centroids):
     # return the bar chart
     return bar 
 
-def getColor2(data,sizethreshold,imageShow,autoSetting=False,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
-    each_labeled=roi(data,sizethreshold,imageShow)
+def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
+    each_labeled=roi_save(data,sizethreshold,distance_threshold,imageShow)
     result=[]
     for src in each_labeled:
         # Check the initial time

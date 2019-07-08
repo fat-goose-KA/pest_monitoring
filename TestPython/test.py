@@ -10,19 +10,11 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl 
 
 import numpy as np
-<<<<<<< Updated upstream
 
 
-a,b,c=combined_code(data="/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/2019_7_4_17_0_25.jpg",sizethreshold=300,imageShow=True)
+a,b,c=combined_code(data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/2_1.jpg",sizethreshold=300,distance_threshold=10,imageShow=True)
 # a,b,c=combined_code_url(data_url="http://211.179.225.31:25000/?action=snapshot",sizethreshold=300,imageShow=True)
 
-=======
-  
-a,b,c=combined_code(data="C:/Users/master/Desktop/Test4.jpg",autoSetting=True,sizethreshold=150,imageShow=False,sdown=40)
-# def combined_code (data,sizethreshold,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
-# ,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"]): 
-     
->>>>>>> Stashed changes
 print("==========")
 print(a) 
 print("==========")
