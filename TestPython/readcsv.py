@@ -42,13 +42,15 @@ def saveData(data, clusterNum,dirName=os.getcwd()):
         dirName=  dirName.replace("\\","/")
     
     # Set the file dierectory
-    if platform.system() == "Windows":
-        dirName =  dirName.replace("\\","/")
     if clusterNum<10:
         openFileName = dirName +"/MothData/MothData" +"0" + str(clusterNum) + ".csv"
     else:
         openFileName = dirName +"/MothData/MothData" + str(clusterNum) + ".csv"
-    f=open(openFileName, 'a')#,newline='')
+    
+    if platform.system() == "Windows":
+        f=open(openFileName, 'a',newline='')
+    else:
+        f=open(openFileName, 'a')
     
     wr = csv.writer(f)
     # Conver the data to one row data.

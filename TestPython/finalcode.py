@@ -1,5 +1,6 @@
 from getColor import getColor2
 from combined_code import classifyMoth
+
 from save_as_csv import saveDataAsCsv
 import time
 import os
@@ -14,16 +15,37 @@ except: #python2
 
 
 def combined_code (data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
-,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"],newFile=False):
+,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"],newFile=False,saveImage=False):
 
-    
-    datalist=getColor2(data,sizethreshold,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
-    
-    a1,b1,c1=classifyMoth(datalist,Save,NumberofType,BugName)
+    each_labeled=roi(data,sizethreshold,imageShow=imageShow)
 
+    datalist=getColor2(each_labeled,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
+    
+    message,clusterSum,clusterData,TrueorFalse=classifyMoth(datalist,Save,NumberofType,BugName)
+    
     saveDataAsCsv(data=b1, bugName=BugName, newFile=newFile)
 
-    return a1,b1,c1
+    if saveImage == True:
+        saveDataAsImage(imageData=each_labeled,clusterData=c1,bugName=BugName)
+
+    return message,clusterSum,clusterData,TrueorFalse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def url_to_image(url):
 	# download the image, convert it to a NumPy array, and then read
@@ -57,3 +79,4 @@ def combined_code_url (data_url, sizethreshold,hlist=[[0,180]],sup=254,sdown=1,v
     a1, b1, c1=combined_code(filedir,sizethreshold,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"])
     return a1, b1, c1
+ 

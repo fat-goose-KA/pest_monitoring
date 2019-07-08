@@ -23,7 +23,7 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
     try:
         
         if NumberofType != len(BugName):
-            return ("Number of Type and Numberof BugName are not same",0,False)
+            return ("Number of Type and Numberof BugName are not same",0,0,False)
 
         # get dir list by os dir function
         
@@ -73,6 +73,7 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
             numberofBug.append(0)
 
 
+        clusterData=[]
         for data in datalist:
             newdata=np.array(data)
             
@@ -158,12 +159,12 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
                 numberofBug[cluster-1] = numberofBug[cluster-1]+1
                 # path = "C:/Users/master/Desktop/20190629/Smarf/Result/" +str(cluster)
                 # cv2.imwrite(os.path.join(path , str(numberofBug[cluster-1])+'.jpg'), data) 
-            
+            clusterData.append(cluster)
         returnmessage = ""
         for i,j in enumerate(BugName):
             if i!=0:
                 returnmessage=returnmessage + " and "
             returnmessage=returnmessage + j + ": " +str(numberofBug[i])
-        return (returnmessage,numberofBug,True)
+        return (returnmessage,numberofBug,clusterData,True)
     except Exception as e:
-        return (e,0,False)
+        return (e,0,0,False,)

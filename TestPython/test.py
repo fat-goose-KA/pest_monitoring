@@ -11,6 +11,8 @@ import matplotlib as mpl
 
 import numpy as np
 
+# a,b,c=combined_code(data="/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/2019_7_4_17_0_25.jpg",sizethreshold=300,imageShow=True)
+# # a,b,c=combined_code_url(data_url="http://211.179.225.31:25000/?action=snapshot",sizethreshold=300,imageShow=True)
 
 a,b,c=combined_code(data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/2_1.jpg",sizethreshold=300,distance_threshold=10,imageShow=True)
 # a,b,c=combined_code_url(data_url="http://211.179.225.31:25000/?action=snapshot",sizethreshold=300,imageShow=True)
