@@ -39,9 +39,8 @@ def plot_colors(hist, centroids):
     return bar 
 
 def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
-    each_labeled=roi_save(data,sizethreshold,distance_threshold,imageShow)
     result=[]
-    for src in each_labeled:
+    for src in data:
         # Check the initial time
         start = time.time() 
         # Read the data from the directory named data.
@@ -87,8 +86,8 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
 
             mv=Cmax
 
-            print(mh,ms,mv)
-            print("++++++++++++++++changed h,s,v+++++++++++++++")
+            # print(mh,ms,mv)
+            # print("++++++++++++++++changed h,s,v+++++++++++++++")
 
             hlist = [[mh+3,mh-3]]
 
@@ -100,9 +99,9 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
                 vdown = min(mv+10,40)
             elif mv>220:
                 vup = max(mv-10,220)
-        print("")
-        print(hlist, sdown,sup,vdown,vup)
-        print("")
+        # print("")
+        # print(hlist, sdown,sup,vdown,vup)
+        # print("")
 
         mask = cv2.inRange(v,vdown,vup)
         mask2 = cv2.inRange(s,sdown,sup)
@@ -148,7 +147,7 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
         clt.fit(rgb2)
 
         #Represent the time to finish the clustering
-        print("time - clustering is finished :", time.time() - start)
+        # print("time - clustering is finished :", time.time() - start)
         centers = []
 
 
@@ -217,7 +216,7 @@ def getColor(data,clusterNum,hlist=[[0,180]],sup=255,sdown=0,vup=255,vdown=0):
     clt.fit(rgb2)
 
     #Represent the time to finish the clustering
-    print("time - clustering is finished :", time.time() - start)
+    # print("time - clustering is finished :", time.time() - start)
     centers = []
 
 

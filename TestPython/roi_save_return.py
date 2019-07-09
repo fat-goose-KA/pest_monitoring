@@ -6,6 +6,7 @@ import time
 import cv2;
 import numpy as np;
 def roi_save(img_file, thresh_size, distance_threshold,imageShow):  #img_file: file name
+    # print(img_file)
     im_in = cv2.imread(img_file, cv2.IMREAD_GRAYSCALE)
     for i in range(len(im_in)):
         for j in range(len(im_in[0])):

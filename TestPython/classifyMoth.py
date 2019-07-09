@@ -19,8 +19,8 @@ def classifyMoth(dataDir,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
     
     # Set the test value
     dirName = os.getcwd()       ##check is it right?
-    print(dirName)
-    print("right?")
+    # print(dirName)
+    # print("right?")
     # Filter the Error
     if NumberofType != len(BugName):
         return ("Number of Type and Numberof BugName are not same",0,False)

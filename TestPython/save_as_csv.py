@@ -39,7 +39,7 @@ def saveDataAsCsv(data ,bugName,newFile=False):
             nameline = nameline.replace("Time,","")    
             nameline = nameline.split(",")
             datasplit = set(nameline)
-            print(i)
+            # print(i)
             lines = f.read().splitlines()
             last_line = lines[-1]
             last_line=last_line.replace("/n","")
@@ -94,11 +94,11 @@ def saveDataAsCsv(data ,bugName,newFile=False):
         fwriter.writerow(bugName)
 
     nowTime = now.strftime('%m/%d %H:%M:%S')
-    print(data, nowTime)
+    # print(data, nowTime)
     data = np.array(data)
     data=data.tolist()    
     data.insert(0,nowTime)
-    print(data)
+    # print(data)
     fwriter.writerow(data)
     f.close()
     
