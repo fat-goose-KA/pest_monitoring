@@ -97,7 +97,7 @@ def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
                 if dist_non_data[0]==[]:
                     print("")
                     break
-                print(dist_non_data)
+                # print(dist_non_data)
                 y = dist_non_data.astype(np.float)
                 dist_avg_non_data=np.average(y,axis=0)
                 avglist =[]

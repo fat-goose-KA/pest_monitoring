@@ -10,14 +10,7 @@ def saveDataAsCsv(data ,bugName,newFile=False):
     originBugName=bugName
     bugName.sort()
     newdata=[]
-    print("start~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    for i in bugName:
-        print(i)
-        print(originBugName)
-        print(originBugName.index(i))
-        print(data)
-        print(data[originBugName.index(i)])
-        print("###############################EOF")        
+    for i in bugName:   
         newdata.append(data[originBugName.index(i)])
 
     data=newdata
