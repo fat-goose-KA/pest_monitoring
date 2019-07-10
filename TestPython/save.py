@@ -5,7 +5,7 @@ import platform
 import numpy as np
 import cv2
 
-def saveDataAsImage(imageData, clusterData, bugName):
+def saveDataAsImage(id,imageData, clusterData, bugName):
      # Find or create a csv file
     bugName.sort()
     now = datetime.datetime.now()
@@ -16,7 +16,7 @@ def saveDataAsImage(imageData, clusterData, bugName):
     print(fileDir)
     print(os.getcwd()[0:strlen])
     nowTime = now.strftime('%m-%d %H-%M-%S')    
-    fileDir=os.getcwd()[0:strlen-11]+'/ImageData/' +nowTime
+    fileDir=os.getcwd()[0:strlen-11]+'/Client_data/'+id+'/ImageData/' +nowTime
     if platform.system() == "Windows":
         fileDir=  fileDir.replace("\\","/")
 

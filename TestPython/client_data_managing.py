@@ -78,6 +78,7 @@ def main() :
         if not os.path.isdir(repo):
             os.mkdir(repo)
             os.mkdir(repo+"MothData/")
+            os.mkdir(repo+"ImageData/")            
             os.mkdir(repo+"NonBugData/")
             os.mkdir(repo+"Picture/")
             os.mkdir(repo+"Picture/MJPG")

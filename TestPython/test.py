@@ -11,10 +11,12 @@ import matplotlib as mpl
 
 import numpy as np
 
-# a,b,c=combined_code(data="/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/2019_7_4_17_0_25.jpg",sizethreshold=300,imageShow=True)
+a,b,c,d=combined_code(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/3_1.png",sizethreshold=300,distance_threshold=10,imageShow=False)
+print("problem here/????????????")
+a,b,c,d=combined_code(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/3_2.png",sizethreshold=300,distance_threshold=10,imageShow=False)
 # # a,b,c=combined_code_url(data_url="http://211.179.225.31:25000/?action=snapshot",sizethreshold=300,imageShow=True)
 
-a,b,c,d=combined_code_id(id="anwls328",sizethreshold=300,distance_threshold=10,imageShow=False)
+# a,b,c,d=combined_code_id(id="anwls3281",sizethreshold=300,distance_threshold=10,imageShow=False)
 # a,b,c=combined_code_id(data_url="http://211.179.225.31:25000/?action=snapshot",sizethreshold=300,imageShow=True)
 
 print("==========")

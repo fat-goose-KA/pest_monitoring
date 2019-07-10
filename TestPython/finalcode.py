@@ -15,14 +15,14 @@ except: #python2
 
 
 
-def combined_code (data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
+def combined_code (id,data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"],newFile=False,saveImage=False):
     each_labeled=roi_save(data,sizethreshold,distance_threshold,imageShow=imageShow)
     datalist=getColor2(each_labeled,sizethreshold,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
     message,clusterSum,clusterData,TrueorFalse=classifyMoth(datalist,Save,NumberofType,BugName)
     saveDataAsCsv(data=clusterSum, bugName=BugName, newFile=newFile)
     if saveImage == True:
-        saveDataAsImage(imageData=each_labeled,clusterData=clusterData,bugName=BugName)
+        saveDataAsImage(id,imageData=each_labeled,clusterData=clusterData,bugName=BugName)
 
     return message,clusterSum,clusterData,TrueorFalse
 
@@ -85,7 +85,7 @@ def combined_code_id (id, sizethreshold,distance_threshold,hlist=[[0,180]],sup=2
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     cv2.imwrite(filedir, data)
-    a1, b1, c1, d1=combined_code(filedir,sizethreshold,distance_threshold,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
+    a1, b1, c1, d1=combined_code(id,filedir,sizethreshold,distance_threshold,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"])
     return a1, b1, c1, d1
  

@@ -10,11 +10,19 @@ def saveDataAsCsv(data ,bugName,newFile=False):
     originBugName=bugName
     bugName.sort()
     newdata=[]
+    print("start~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     for i in bugName:
+        print(i)
+        print(originBugName)
+        print(originBugName.index(i))
+        print(data)
+        print(data[originBugName.index(i)])
+        print("###############################EOF")        
         newdata.append(data[originBugName.index(i)])
+
     data=newdata
     now = datetime.datetime.now()
-
+    year = now.strftime('%Y')
 
     filedir=os.getcwd()
     strlen=len(filedir)
@@ -27,7 +35,7 @@ def saveDataAsCsv(data ,bugName,newFile=False):
     fileList=[]
     for i in dirlist:
         if i.find('csv') is not -1:
-            if i.find('Bug_%Y_') is not -1:
+            if i.find('Bug_'+year+'_' ) is not -1:
                 fileList.append(filedir+i)
     fileList.sort(reverse=True)
     if fileList!=[]:
@@ -61,8 +69,8 @@ def saveDataAsCsv(data ,bugName,newFile=False):
             dirName = fileList[len(fileList)-1]
 
             dirName = dirName.replace(filedir,"")
-            front = dirName[:7]
-            num = dirName[7:].replace(".csv","")
+            front = dirName[:9]
+            num = dirName[9:].replace(".csv","")
             num = int(num)
             num = num+1
             dirName = front+ str(num)+".csv"
@@ -84,7 +92,7 @@ def saveDataAsCsv(data ,bugName,newFile=False):
                 f= open(dirName,"a")
             fwriter=csv.writer(f)
     else:
-        dirName = filedir + "Bug_%Y_0.csv"
+        dirName = filedir + "Bug_"+year+"_0.csv"
         if platform.system() == "Windows":
             f= open(dirName,"a",newline="") 
         else :
@@ -103,7 +111,7 @@ def saveDataAsCsv(data ,bugName,newFile=False):
     f.close()
     
     
-data=[1,3,4,1,1234]
-bugName=["kim","Moo","alim","Jin","bzxv"]
-saveDataAsCsv(data,bugName)
+# data=[1,3,4,1,1234]
+# bugName=["kim","Moo","alim","Jin","bzxv"]
+# saveDataAsCsv(data,bugName)
 
