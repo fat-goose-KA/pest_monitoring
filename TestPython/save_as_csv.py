@@ -36,13 +36,15 @@ def saveDataAsCsv(id, data ,bugName,newFile=False):
         exist=False
         for i in fileList:
             f = open(i,"r")
-            nameline = f.readline().replace("\n","")
+            nameline = f.readline().replace("\r\n","")
             nameline = nameline.replace("Time,","")    
             nameline = nameline.split(",")
+            print(nameline)
             datasplit = set(nameline)
             # print(i)
             lines = f.read().splitlines()
             last_line = lines[-1]
+            last_line=last_line.replace("/r/n","") 
             last_line=last_line.replace("/n","")
             last_line=last_line.split(",")
             del last_line[0]
