@@ -37,6 +37,8 @@ def saveDataAsCsv(id, data ,bugName,newFile=False):
         for i in fileList:
             f = open(i,"r")
             nameline = f.readline().replace("\r\n","")
+            nameline=nameline.replace("\n","")
+            
             nameline = nameline.replace("Time,","")    
             nameline = nameline.split(",")
             print(nameline)

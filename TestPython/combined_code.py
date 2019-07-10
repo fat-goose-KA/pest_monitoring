@@ -19,11 +19,10 @@ from callee import roi
 #    if the function is succeed to run           - return True
 
 # print(os.getcwd())
-def classifyMoth(datalist,Save=False,NumberofType=4,BugName=["1","2","3","4"]):
+def classifyMoth(datalist,Save=False,BugName=["1","2","3","4"]):
     try:
         
-        if NumberofType != len(BugName):
-            return ("Number of Type and Numberof BugName are not same",0,0,False)
+        NumberofType=len(BugName)
 
         # get dir list by os dir function
         
