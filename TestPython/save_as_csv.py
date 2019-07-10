@@ -5,7 +5,7 @@ import platform
 import numpy as np
 
 
-def saveDataAsCsv(data ,bugName,newFile=False):
+def saveDataAsCsv(id, data ,bugName,newFile=False):
     # Find or create a csv file
     originBugName=bugName
     bugName.sort()
@@ -20,7 +20,7 @@ def saveDataAsCsv(data ,bugName,newFile=False):
     filedir=os.getcwd()
     strlen=len(filedir)
 
-    filedir=os.getcwd()[0:strlen-11]+'/TimeData/'
+    filedir=os.getcwd()[0:strlen-11]+'/Client_data/'+id+'/TimeData/'
     if platform.system() == "Windows":
         filedir=  filedir.replace("\\","/")
         

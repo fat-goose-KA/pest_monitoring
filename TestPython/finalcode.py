@@ -20,7 +20,7 @@ def combined_code (id,data,sizethreshold,distance_threshold,autoSetting=False,hl
     each_labeled=roi_save(data,sizethreshold,distance_threshold,imageShow=imageShow)
     datalist=getColor2(each_labeled,sizethreshold,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
     message,clusterSum,clusterData,TrueorFalse=classifyMoth(datalist,Save,NumberofType,BugName)
-    saveDataAsCsv(data=clusterSum, bugName=BugName, newFile=newFile)
+    saveDataAsCsv(id, data=clusterSum, bugName=BugName, newFile=newFile)
     if saveImage == True:
         saveDataAsImage(id,imageData=each_labeled,clusterData=clusterData,bugName=BugName)
 
