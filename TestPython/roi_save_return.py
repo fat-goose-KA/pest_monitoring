@@ -1,5 +1,6 @@
 import os
 import time
+import platform
 ##################################################################################
 #roi saving version
 ####################################################################################
@@ -60,10 +61,11 @@ def roi_save(img_file, thresh_size, distance_threshold,imageShow):  #img_file: f
     # cv2.destroyAllWindows()
     new_data=[]
     im_origin = cv2.imread(img_file, cv2.IMREAD_COLOR)
-
     filedir=os.getcwd()
     strlen=len(filedir)
     filedir=os.getcwd()[0:strlen-11]+'/roi_log/'
+    if platform.system() == "Windows":
+        filedir=  filedir.replace("\\","/")
     txt_name="1.txt"
     # print(filedir+txt_name)
     try:

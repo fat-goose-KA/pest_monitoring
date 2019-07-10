@@ -42,11 +42,3 @@ def saveDataAsImage(id,imageData, clusterData, bugName):
         fullPath =dirList[clusterNum]+"/"+str(i)+".jpg"
         print(fullPath)
         cv2.imwrite(fullPath,j)
-
-# im1 = cv2.imread("/Users/master/Desktop/test.jpg")
-# im2 = cv2.imread("/Users/master/Desktop/test2.jpg")
-# im3 = cv2.imread("/Users/master/Desktop/test3.jpg")
-# im4 = cv2.imread("/Users/master/Desktop/test4.jpg")
-# imglist = [im1,im2,im3,im4]
-# clusterData = [3,2,1,-1]
-# saveDataAsImage(imglist, clusterData, ["a","b","c","d","e","f"])
