@@ -97,14 +97,22 @@ def roi_save(img_file, thresh_size, distance_threshold,imageShow):  #img_file: f
         y=output[2][i,cv2.CC_STAT_HEIGHT]
         cv2.rectangle(im_otsu,(x0,y0),(x0+x,y0+y),(255,255,255),10)
         flag=True
+        flagg=True
         for j in range(len(old_list)):
             x_y=old_list[j].split(',')
             x1=int(x_y[0])
             y1=int(x_y[1])
+            x_len=int(x_y[2])
+            y_len=int(x_y[3])
             # print(str((x0-x1)*(x0-x1)+(y0-y1)*(y0-y1)))
             # print(((x0-x1)*(x0-x1)+(y0-y1)*(y0-y1))<distance_threshold)
             if (((x0-x1)*(x0-x1)+(y0-y1)*(y0-y1))<distance_threshold):
-                flag=False   
+                if (((x-x_len)*(x-x_len)+(y-y_len)*(y-y_len))<distance_threshold):
+                    flag=False
+            if (x0<x1) and (x1<x0+x) and (y0<y1) and (y1<y0+y):
+                flagg=False
+                newx=x1
+                newy=y1
         if imageShow == True:
             cv2.imshow("otsu",im_otsu)
             cv2.waitKey(0)
@@ -112,8 +120,10 @@ def roi_save(img_file, thresh_size, distance_threshold,imageShow):  #img_file: f
         # subimg=im_origin[x:x+x0, y:y+y0]
         subimg=im_origin[y0:y+y0,x0:x+x0]
         if flag==True:
+            if flagg==False:
+                subimg=im_origin[y0:newy,x0:newx]
             new_data.append(subimg)
-            new_list.append(str(x0)+','+str(y0))
+            new_list.append(str(x0)+','+str(y0)+','+str(x)+','+str(y))
         if imageShow == True:
             cv2.imshow("sub",subimg)
             cv2.waitKey(0)
