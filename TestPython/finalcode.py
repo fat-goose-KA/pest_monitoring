@@ -80,12 +80,13 @@ def combined_code_id (id, sizethreshold,distance_threshold,hlist=[[0,180]],sup=2
     filedir=os.getcwd()
     strlen=len(filedir)
     filedir=filedir[0:strlen-11]
-    filedir=filedir+'/Picture/MJPG/'+outputFileName
-    cv2.imshow(filedir,data)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    filedir=filedir+'/Client_data/'+id+'/Picture/MJPG/'+outputFileName
+    if imageShow==True:
+        cv2.imshow(filedir,data)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
     cv2.imwrite(filedir, data)
     a1, b1, c1, d1=combined_code(id,filedir,sizethreshold,distance_threshold,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
-,Save=False,imageShow=False,NumberofType=4,BugName=["1","2","3","4"])
+,Save=False,imageShow=False,BugName=["1","2","3","4"])
     return a1, b1, c1, d1
  

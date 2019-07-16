@@ -151,10 +151,10 @@ def roi_save(img_file, thresh_size, distance_threshold,imageShow):  #img_file: f
     f.write('\n')
     f.close()
     # print(len(new_list))
-    # if imageShow == True:
-    for i in new_data:
-        cv2.imshow("return",i)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+    if imageShow == True:
+        for i in new_data:
+            cv2.imshow("return",i)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
     return new_data
 ########################################################################
