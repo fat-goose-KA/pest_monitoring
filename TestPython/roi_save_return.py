@@ -1,13 +1,14 @@
 import os
 import time
 import platform
+import cv2
+import numpy as np
 ##################################################################################
 #roi saving version
 ####################################################################################
-import cv2
-import numpy as np
 
-def roi_save(img_file, thresh_size, distance_threshold,imageShow):  #img_file: file name
+
+def roi_save(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img_file: file name
 
     im_in = cv2.imread(img_file, cv2.IMREAD_GRAYSCALE)
     for i in range(len(im_in)):
@@ -69,23 +70,26 @@ def roi_save(img_file, thresh_size, distance_threshold,imageShow):  #img_file: f
         filedir=  filedir.replace("\\","/")
     txt_name="1.txt"
     # print(filedir+txt_name)
-    try:
-        f=open(filedir+txt_name,'r')
-        lines=f.readlines()
-        lastline=lines[-1] # parsing into elements separate by tab character @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        # print(lastline)
-        before_list=lastline.split('\n')
-        before_list=before_list[0].split('\t')
-        if (len(before_list)==1):
-            old_list=[]
-        else:
-            old_list=before_list[1:] # save them in point_list ##if it has no point??
-        # for i in old_list:
-        #     print(i)
-        # print("end?")
-        f.close()
-    except:
-        old_list=[]    
+    if newFile == False:
+        try:
+            f=open(filedir+txt_name,'r')
+            lines=f.readlines()
+            lastline=lines[-1] # parsing into elements separate by tab character @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            # print(lastline)
+            before_list=lastline.split('\n')
+            before_list=before_list[0].split('\t')
+            if (len(before_list)==1):
+                old_list=[]
+            else:
+                old_list=before_list[1:] # save them in point_list ##if it has no point??
+            # for i in old_list:
+            #     print(i)
+            # print("end?")
+            f.close()
+        except:
+            old_list=[]    
+    else:
+        old_list=[]  
     new_data=[]
     new_list=[]
     for i in range(1,output[0]):
