@@ -41,7 +41,6 @@ def saveDataAsCsv(id, data ,bugName,newFile=False):
             
             nameline = nameline.replace("Time,","")    
             nameline = nameline.split(",")
-            print(nameline)
             datasplit = set(nameline)
             # print(i)
             lines = f.read().splitlines()

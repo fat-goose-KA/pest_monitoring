@@ -160,73 +160,27 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
             plts.axis("off")
             plts.imshow(bar)
             plts.show()
-        result.append(clt.cluster_centers_)
-    return result       
-def getColor(data,clusterNum,hlist=[[0,180]],sup=255,sdown=0,vup=255,vdown=0):
-    
-    # Check the initial time
-    start = time.time() 
 
-    # Read the data from the directory named data.
-    src = cv2.imread(data, cv2.IMREAD_COLOR)
+        clusterData=[]
+        
+        for i in range(0,clusterNum):
+            clusterData.append(rgb2[clt.labels_==i])
 
-    # Convert the image to hsv format.
-    hsv = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
-    h,s,v = cv2.split(hsv)
-
-    # Mask the image by hsv input condition
-    # v and s has one interval 
-    # h has sevral interval and it returns the union of the interval. 
-    mask = cv2.inRange(v,vdown,vup)
-    mask2 = cv2.inRange(s,sdown,sup)
-    mask3 = cv2.inRange(h,0,180)
-    for i in hlist:
-        mask3 = mask3 + cv2.inRange(h,i[0],i[1])
-    
-    res = cv2.bitwise_and(src, src, mask=mask)
-    res = cv2.bitwise_and(res, res, mask=mask2)
-    bgr = cv2.bitwise_and(res, res, mask=mask3)
-
-    # openCV get a image as a BGR format
-    # Convert the image to RGB format
-    rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
-
-    # Reshape for applying Kmean function to the image.
-    rgb = rgb.reshape(rgb.shape[0] * rgb.shape[1], 3)
-
-    # The masked area has (0,0,0) RGB value
-    blackPoint= np.array([0,0,0])
-    k=0
-    bdelete = []
-    for i in rgb:
-        if np.array_equal(i,blackPoint):
-
-            # Find the Black point and append in bdelete list
-            bdelete.append(k)
-        k=k+1
-
-    #Delete the Masked area from the image.
-    rgb2=np.delete(rgb, bdelete,0)
-
-    # The number of cluster is 5
-    clusterNum = 5 
-
-    # Calculate the Color Clusters of Image by the KMeans Class.
-    clt = KMeans(n_clusters = clusterNum)
-    clt.fit(rgb2)
-
-    #Represent the time to finish the clustering
-    # print("time - clustering is finished :", time.time() - start)
-    centers = []
+        cluster_num=[]
+        cluster_var=[]
+        for i,j in enumerate(clusterData):
+            csize = j.size/3
+            cluster_num.append(csize)
+            csum=0
+            ccenter=clt.cluster_centers_[i]
+            for k in j:
+                csum = csum + np.linalg.norm(ccenter-k)**2
+            cvar = csum/(csize-1)
+            cluster_var.append(cvar)
+        
+        resultData = [clt.cluster_centers_,cluster_var,cluster_num]
+        
+        result.append(resultData)
 
 
-    # # show our color bart
-    # hist = centroid_histogram(clt)
-    # bar = plot_colors(hist, clt.cluster_centers_)
-    
-    # plts.figure()
-    # plts.axis("off")
-    # plts.imshow(bar)
-    # plts.show()
-
-    return(clt.cluster_centers_)
+    return result    
