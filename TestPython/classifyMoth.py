@@ -173,7 +173,7 @@ def classifyMoth(datalist,Save=False,BugName=["1","2","3","4"]):
                 clusterDistance=origin
                 cluster=l+1
                 
-
+        
         for l,r in enumerate(dist_avg_non_data_total):
             for i in itertools.permutations([1,2,3,4,0],5):
                 pMultiple=1
@@ -197,9 +197,11 @@ def classifyMoth(datalist,Save=False,BugName=["1","2","3","4"]):
                     break
             if cluster==-1:
                 break
+        
+        print(pMultiple, clusterDistance,cluster)
 
         # change the new image data to
-        if clusterDistance==0:
+        if clusterDistance < 10**-10:
             cluster =-1
         newdata=[]
         for j in bestCombn:
