@@ -1,5 +1,6 @@
 from getColor import getColor2
 from classifyMoth import classifyMoth
+from classifyMoth import classifyMoth_distance
 from roi_save_return import roi_save
 from save_as_csv import saveDataAsCsv
 from save_as_image import saveDataAsImage
@@ -23,8 +24,10 @@ def combined_code (id,data,sizethreshold,distance_threshold,autoSetting=False,hl
 
     datalist = getColor2(each_labeled,sizethreshold,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
 
+    # message,clusterSum,clusterData,TrueorFalse = classifyMoth(datalist,Save,BugName)
     message,clusterSum,clusterData,TrueorFalse = classifyMoth(datalist,Save,BugName)
-    
+
+
     print(message, clusterSum, clusterData, TrueorFalse)
     
     saveDataAsCsv(id, data=clusterSum, bugName=BugName, newFile=newFile)

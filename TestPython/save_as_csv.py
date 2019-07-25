@@ -20,10 +20,19 @@ def saveDataAsCsv(id, data ,bugName,newFile=False):
     filedir=os.getcwd()
     strlen=len(filedir)
 
-    filedir=os.getcwd()[0:strlen-11]+'/Client_data/'+id+'/TimeData/'
+    filedir=os.getcwd()[0:strlen-11]+'/Client_data/'+id
+
+    if not os.path.exists(filedir):
+        os.mkdir(filedir)
+
+    filedir=filedir+'/TimeData/'  
+
     if platform.system() == "Windows":
         filedir=  filedir.replace("\\","/")
-        
+
+    if not os.path.exists(filedir):
+        os.mkdir(filedir)
+
     dirlist=os.listdir(filedir)
     fileList=[]
     for i in dirlist:

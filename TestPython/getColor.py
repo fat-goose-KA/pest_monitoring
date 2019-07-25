@@ -120,17 +120,16 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
             cv2.waitKey(0)
             cv2.destroyAllWindows()     #for check whether filtering has proccessed well
 
-        rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
+        rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
 
         # Reshape for applying Kmean function to the image.
         rgb = rgb.reshape(rgb.shape[0] * rgb.shape[1], 3)
 
-        # The masked area has (0,0,0) RGB value
-        blackPoint= np.array([0,0,0])
+        # The masked area has v==0 for HSV value
         k=0
         bdelete = []
         for i in rgb:
-            if np.array_equal(i,blackPoint):
+            if i[2]==0:
 
                 # Find the Black point and append in bdelete list
                 bdelete.append(k)
@@ -138,7 +137,8 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
 
         #Delete the Masked area from the image.
         rgb2=np.delete(rgb, bdelete,0)
-
+        if len(rgb2)==0:
+            rgb2=np.array([[0,0,0],[1,1,1],[1,0,0],[0,1,0],[0,0,1]])
         # The number of cluster is 5
         clusterNum = 5 
 
@@ -153,13 +153,13 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
 
         # # show our color bart
         hist = centroid_histogram(clt)
-        bar = plot_colors(hist, clt.cluster_centers_)
+        # bar = plot_colors(hist, clt.cluster_centers_)
         
-        if imageShow==True:
-            plts.figure()
-            plts.axis("off")
-            plts.imshow(bar)
-            plts.show()
+        # if imageShow==True:
+        #     plts.figure()
+        #     plts.axis("off")
+        #     plts.imshow(bar)
+        #     plts.show()
 
         clusterData=[]
         
@@ -175,7 +175,7 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
             ccenter=clt.cluster_centers_[i]
             for k in j:
                 csum = csum + np.linalg.norm(ccenter-k)**2
-            cvar = csum/(csize-1)
+            cvar = (csum/(csize-1))**0.5
             cluster_var.append(cvar)
         
         resultData = [clt.cluster_centers_,cluster_var,cluster_num]

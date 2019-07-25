@@ -21,13 +21,14 @@ def saveDataAsImage(id,imageData, clusterData, bugName):
 
     
     if not os.path.exists(fileDir):
-        print(fileDir)
         os.mkdir(fileDir)
     
     fileDir = fileDir + '/' +nowTime
     os.mkdir(fileDir)
     
-    bugName.remove('Time')
+    if bugName.count("Time") !=0 :
+        bugName.remove('Time')
+
     dirList = []
     for i in bugName:
         dirName = fileDir +"/" + i 
@@ -38,14 +39,10 @@ def saveDataAsImage(id,imageData, clusterData, bugName):
         os.mkdir(i)
     
     clusterData=list(map(int, clusterData))
-    print("------------")
-    print(dirList)
-    print("------------")
     for i,j in enumerate(imageData):
         clusterNum = clusterData[i]
         if clusterNum == -1:
             clusterNum = 0 
         fullPath =dirList[clusterNum]+"/"+str(i)+".jpg"
-        print(clusterNum,fullPath)
 
         cv2.imwrite(fullPath,j)
