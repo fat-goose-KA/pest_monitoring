@@ -17,26 +17,34 @@ except: #python2
 def haar_combined_code (id,data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,BugName=["1","2","3","4"],newFile=False,saveImage=False):
 
-    each_labeled = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
-    moth_cascade = cv2.CascadeClassifier('output.xml')
-    print(len(each_labeled))
-    for img in each_labeled:
-        cv2.imshow("before",img)
-        cv2.waitKey(0)
+    each_labeled, each_data = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
+    test_image=cv2.imread(data,cv2.IMREAD_COLOR)
+    confirm_image=cv2.imread(data,cv2.IMREAD_COLOR)
+    result_lst=[]
+    for i in range(len(each_data)):
+        test_image=confirm_image.copy()
+        data=each_data[i]
+        x_y=data.split(',')
+        x1=int(x_y[0])
+        y1=int(x_y[1])
+        x_len=int(x_y[2])
+        y_len=int(x_y[3])
+        cv2.rectangle(test_image,(x1,y1),(x1+x_len,y1+y_len),(255,0,0),5)
+        cv2.imshow("haar",test_image)
+        cha=cv2.waitKey(0)      #press y: 121 if okay, n:110 if not, e:101 to edit. at the end of editing, press space: 32
         cv2.destroyAllWindows()
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        moth = moth_cascade.detectMultiScale(gray, 1.3, 2)
-        for (x,y,w,h) in moth:
-            print("how many?")
-            cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
-            roi_gray = gray[y:y+h, x:x+w]
-            roi_color = img[y:y+h, x:x+w]
-        # eyes = eye_cascade.detectMultiScale(roi_gray)
-        # for (ex,ey,ew,eh) in eyes:
-        #     cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-        # cv2.imwrite("0718result.jpg",img)
-        cv2.imshow("after",img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()        
+        if (cha==121):
+            result_lst.append(data)                                 ######haar training file check and change this one as that form
+            cv2.rectangle(confirm_image,(x1,y1),(x1+x_len,y1+y_len),(255,255,255),5)
+        elif(cha==110):
+            continue
+        else:
+            termination=0
+            while (termination!=32):
+                print("a")
+            
+    
 
-haar_combined_code(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/3_2.png",sizethreshold=300,distance_threshold=10,imageShow=True,BugName=["a","b","c","d"])
+
+
+haar_combined_code(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/3_2.png",sizethreshold=300,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])

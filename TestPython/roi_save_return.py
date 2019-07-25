@@ -155,11 +155,13 @@ def roi_save(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img
         f.write('\t'+new_list[i])
     f.write('\n')
     f.close()
-    # print(len(new_list))
+    print(len(new_list))
     if imageShow == True:
         for i in new_data:
             cv2.imshow("return",i)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
-    return new_data
+    return new_data, new_list
 ########################################################################
+
+roi_save("/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/3_2.png", 500, 10,newFile=True,imageShow=True)
