@@ -20,11 +20,7 @@ except: #python2
 def combined_code (id,data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,BugName=["1","2","3","4"],newFile=False,saveImage=False):
 
-<<<<<<< HEAD
-    each_labeled = roi_save_new(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
-=======
-    each_labeled, imgs = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
->>>>>>> e081d1a13f3e96e3b41b525fafbe5ed0957f9aa3
+    each_labeled, imgs = roi_save_new(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
 
 
     datalist = getColor2(each_labeled,sizethreshold,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)

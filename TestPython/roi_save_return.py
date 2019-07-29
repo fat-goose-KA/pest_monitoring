@@ -395,9 +395,5 @@ def roi_save_new(img_file, thresh_size, distance_threshold,newFile,imageShow):  
             cv2.imshow("return",i)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
-<<<<<<< HEAD
-    return new_data  
-=======
     return new_data, new_list
->>>>>>> e081d1a13f3e96e3b41b525fafbe5ed0957f9aa3
 ########################################################################
