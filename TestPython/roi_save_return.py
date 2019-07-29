@@ -163,5 +163,3 @@ def roi_save(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img
             cv2.destroyAllWindows()
     return new_data, new_list
 ########################################################################
-
-roi_save("/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/3_2.png", 500, 10,newFile=True,imageShow=True)
