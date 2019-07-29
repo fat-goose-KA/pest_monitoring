@@ -12,31 +12,98 @@ try: #python3
     from urllib.request import urlopen
 except: #python2
     from urllib import urlopen
-
-
-def haar_combined_code (id,data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
+ix,iy=-1,-1
+down=False
+up=False
+result_lst=[]
+def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,BugName=["1","2","3","4"],newFile=False,saveImage=False):
-
-    each_labeled = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
-    moth_cascade = cv2.CascadeClassifier('output.xml')
-    print(len(each_labeled))
-    for img in each_labeled:
-        cv2.imshow("before",img)
-        cv2.waitKey(0)
+    global ix
+    global iy
+    global up
+    global down
+    global result_lst
+    each_labeled, each_data = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
+    test_image=cv2.imread(data,cv2.IMREAD_COLOR)
+    confirm_image=cv2.imread(data,cv2.IMREAD_COLOR)
+    original_image=cv2.imread(data,cv2.IMREAD_COLOR)
+    def draw_box(event, x, y, flags, param, img=test_image):
+        global ix, iy
+        global down, up
+        global result_lst
+        # while(event != cv2.EVENT_LBUTTONDOWN):
+        if event== cv2.EVENT_LBUTTONDOWN:
+            ix,iy=x,y
+            up=True
+                # break
+            print("dddddddddddddddddddd")
+        # if event == cv2.EVENT_MOUSEMOVE:
+        #     if (ix!=-1):
+        #         ex,ey=x,y
+        #         if (up==True) and (down==False):
+        #             # cv2.destroyAllWindows()
+        #             cv2.rectangle(img, (ix, iy), (ex, ey), (255,255,255), 5)
+        #             # cv2.imshow("on drawing",img)
+        #             test_image=confirm_image.copy()
+        if event == cv2.EVENT_LBUTTONUP:
+            ex,ey=x,y
+            cv2.rectangle(confirm_image, (ix, iy), (ex, ey), (255,255,255), 5)
+            component=str(ix)+","+str(iy)+","+str(ex-ix)+","+str(ey-iy)
+            result_lst.append(component)
+            down=True
+            # test_image=confirm_image.copy()
+            print("uuuuuuuuuu")
+        # print("#########################################################end")
+    # result_lst=[]
+    for i in range(len(each_data)):
+        test_image=confirm_image.copy()
+        data=each_data[i]
+        x_y=data.split(',')
+        x1=int(x_y[0])
+        y1=int(x_y[1])
+        x_len=int(x_y[2])
+        y_len=int(x_y[3])
+        cv2.rectangle(test_image,(x1,y1),(x1+x_len,y1+y_len),(255,0,0),5)
+        cv2.imshow("press y if u want pass, n if not, e if u want edit, r to remove last box",test_image)
+        cha=cv2.waitKey(0)      #press y: 121 if okay, n:110 if not, e:101 to edit. space for every turn:32 at the end of editing, press e again, r:114 to remove
         cv2.destroyAllWindows()
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        moth = moth_cascade.detectMultiScale(gray, 1.3, 2)
-        for (x,y,w,h) in moth:
-            print("how many?")
-            cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
-            roi_gray = gray[y:y+h, x:x+w]
-            roi_color = img[y:y+h, x:x+w]
-        # eyes = eye_cascade.detectMultiScale(roi_gray)
-        # for (ex,ey,ew,eh) in eyes:
-        #     cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-        # cv2.imwrite("0718result.jpg",img)
-        cv2.imshow("after",img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()        
+        if (cha==114):
+            # while (cha==114):
+            result_lst.pop()
+            # cha=cv2.waitKey(0)
+            confirm_image=original_image.copy()
+            for j in result_lst:
+                print("ho!")
+                x_y1=j.split(',')
+                x11=int(x_y1[0])
+                y11=int(x_y1[1])
+                x_len1=int(x_y1[2])
+                y_len1=int(x_y1[3])
+                cv2.rectangle(confirm_image,(x11,y11),(x11+x_len1,y11+y_len1),(255,255,255),5)
+            test_image=confirm_image.copy()
+            cv2.imshow("press y if u want pass, n if not, e if u want edit, r to remove last box",test_image)
+            cha=cv2.waitKey(0)      #press y: 121 if okay, n:110 if not, e:101 to edit. space for every turn:32 at the end of editing, press e again
+            cv2.destroyAllWindows()                
+        if (cha==121):
+            result_lst.append(data)                                 ######haar training file check and change this one as that form
+            cv2.rectangle(confirm_image,(x1,y1),(x1+x_len,y1+y_len),(255,255,255),5)
+        elif(cha==110): 
+            continue
+        elif(cha==101):
+            termination=0
+            ix,iy=-1,-1
+            up=False
+            down=False
+            while (termination!=101):
+                cv2.namedWindow("draw with mouse")
+                cv2.setMouseCallback("draw with mouse", draw_box)
+                cv2.imshow("draw with mouse",test_image)
+                termination=cv2.waitKey(1)
+                # check yes or no
+                # print ('a')
+            
+    
 
-haar_combined_code(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/3_2.png",sizethreshold=300,distance_threshold=10,imageShow=True,BugName=["a","b","c","d"])
+
+
+haar_training(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
