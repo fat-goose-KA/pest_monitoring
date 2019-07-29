@@ -37,7 +37,10 @@ def readData(fileList):
 
 #save file
 def saveData(data, clusterNum,dirName=os.getcwd()):
-    
+    dirName=os.getcwd()
+    strlen=len(dirName)
+    dirName = dirName[0:strlen-11]
+
     if platform.system() == "Windows":
         dirName=  dirName.replace("\\","/")
     
@@ -46,7 +49,7 @@ def saveData(data, clusterNum,dirName=os.getcwd()):
         openFileName = dirName +"/MothData/MothData" +"0" + str(clusterNum) + ".csv"
     else:
         openFileName = dirName +"/MothData/MothData" + str(clusterNum) + ".csv"
-    
+
     if platform.system() == "Windows":
         f=open(openFileName, 'a',newline='')
     else:
@@ -57,7 +60,6 @@ def saveData(data, clusterNum,dirName=os.getcwd()):
     output=[]
     for i in data:
         for j in i:
-            print(j)
             output.append(j)
 
     # Write the data to a file.

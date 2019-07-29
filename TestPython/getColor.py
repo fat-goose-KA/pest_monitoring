@@ -102,12 +102,16 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
         # print("")
         # print(hlist, sdown,sup,vdown,vup)
         # print("")
-
-        mask = cv2.inRange(v,vdown,vup)
-        mask2 = cv2.inRange(s,sdown,sup)
-        mask3 = cv2.inRange(h,0,180)
-        for i in hlist:
-            mask3 = mask3 + cv2.inRange(h,i[0],i[1])
+        mask = cv2.inRange(v,1,254)
+        mask2 = cv2.inRange(s,1,254)
+        mask3_up = cv2.inRange(h,125,180)
+        mask3_down = cv2.inRange(h,0,80)
+        mask3=(mask3_up+mask3_down)
+        # mask = cv2.inRange(v,vdown,vup)
+        # mask2 = cv2.inRange(s,sdown,sup)
+        # mask3 = cv2.inRange(h,0,180)
+        # for i in hlist:
+        #     mask3 = mask3 + cv2.inRange(h,i[0],i[1])
 
         res = cv2.bitwise_and(src, src, mask=mask)
         res = cv2.bitwise_and(res, res, mask=mask2)
