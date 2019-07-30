@@ -37,14 +37,6 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
             up=True
                 # break
             print("dddddddddddddddddddd")
-        # if event == cv2.EVENT_MOUSEMOVE:
-        #     if (ix!=-1):
-        #         ex,ey=x,y
-        #         if (up==True) and (down==False):
-        #             # cv2.destroyAllWindows()
-        #             cv2.rectangle(img, (ix, iy), (ex, ey), (255,255,255), 5)
-        #             # cv2.imshow("on drawing",img)
-        #             test_image=confirm_image.copy()
         if event == cv2.EVENT_LBUTTONUP:
             ex,ey=x,y
             cv2.rectangle(confirm_image, (ix, iy), (ex, ey), (255,255,255), 5)
@@ -73,7 +65,7 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
             # cha=cv2.waitKey(0)
             confirm_image=original_image.copy()
             for j in result_lst:
-                print("ho!")
+                # print("ho!")
                 x_y1=j.split(',')
                 x11=int(x_y1[0])
                 y11=int(x_y1[1])
@@ -99,11 +91,26 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
                 cv2.setMouseCallback("draw with mouse", draw_box)
                 cv2.imshow("draw with mouse",test_image)
                 termination=cv2.waitKey(1)
-                # check yes or no
-                # print ('a')
-            
-    
+    cv2.destroyAllWindows()
+    cv2.imshow("If there's no more objects, press d. To add more objects, press space for every turn",confirm_image) #d: 100 space: 32
+    cha=cv2.waitKey(0)      
+    cv2.destroyAllWindows()
+    while (cha!=100):
+        termination=0
+        ix,iy=-1,-1
+        up=False
+        down=False
+        # while (termination!=100):
+        cv2.namedWindow("draw with mouse")
+        cv2.setMouseCallback("draw with mouse", draw_box)
+        cv2.imshow("draw with mouse",test_image)
+        cha=cv2.waitKey(1)
+        # cv2.destroyAllWindows()
+        # cv2.imshow("If there's no more objects, press d. To add more objects, press space for every turn",confirm_image) #d: 100 space: 32
+        # cha=cv2.waitKey(1)      #press y: 121 if okay, n:110 if not, e:101 to edit. space for every turn:32 at the end of editing, press e again             
+    cv2.destroyAllWindows()
+    return result_lst
 
 
-
-haar_training(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
+res=haar_training(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
+print(res)
