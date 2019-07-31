@@ -13,6 +13,10 @@ from readcsv import readData
 import time
 import os
 import platform
+try: #python3
+    from urllib.request import urlopen
+except: #python2
+    from urllib import urlopen
 
 def distanceHSV(a,b):
     h = abs(a[0]-b[0])
@@ -32,6 +36,57 @@ def distanceHSV(a,b):
 # 스마프 파일이 저장된 위치
 # ex) direc ="C:/Users/master/Desktop/20190629/Smarf"
 
+def id_to_ip(id):
+    filedir=os.getcwd()
+    strlen=len(filedir)
+    filedir=os.getcwd()[0:strlen-11]+'/Client_data/'
+    txt_name='client_data.txt'
+    
+    try:
+        dirName = filedir+txt_name
+        
+
+        if platform.system() == "Windows":
+            dirName=  dirName.replace("\\","/")
+        f = open(dirName, 'r')
+        lines=f.readlines()
+        old_id_list=[]
+        old_ip_list=[]
+        for i in lines:
+            # print(i)
+            before_list=i.split('\n')
+            # print(before_list)
+            before_list=before_list[0].split('\t')  
+            # print(before_list)
+            if (before_list[0]==id):
+                f.close()
+                return before_list[1]
+        f.close()
+        return None
+    except:
+        return None
+
+def id_to_image(id):
+	# download the image, convert it to a NumPy array, and then read
+	# it into OpenCV format
+    # try: #python3
+    #     resp = urlopen(url)
+    # except: #python2
+    #     resp = urlopen(url)    
+    try:
+        ip=id_to_ip(id)
+        if ip is None:
+            print("wrong ip address")
+        # url = "http://"+ip+"/?action=snapshot"
+        url = "http://"+ip+"camera/jpeg"
+        resp=urlopen(url)
+        image = np.asarray(bytearray(resp.read()), dtype="uint8")
+        image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+	# return the image
+        return image
+    except:
+        raise NameError('incorrect url. Double check it')
+
 
 def MakeDist(clusterNum,data,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
 
@@ -49,7 +104,7 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     # Set the initial variable
     dist_avg_data=[]
 
-    each_labeled = roi_save_new(data,300,10,imageShow = False,newFile = True)
+    each_labeled, imgs = roi_save_new(data,300,10,imageShow = False,newFile = True)
 
 
     datalist = getColor2(each_labeled,sizethreshold=300,distance_threshold=10,imageShow = False, autoSetting=True,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
@@ -63,7 +118,6 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
         if not (os.path.exists(directory)):
             saveData(data[0],clusterNum)
         else:
-            print("!")
             # Read the existing bug data from directory.
             dist_data=readData([directory])
 
@@ -98,7 +152,6 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
                 if distsum < clusterDistance:
                     clusterDistance = distsum
                     bestCombn = i
-                print(clusterDistance)
             newdata=[]
             for j in bestCombn:
                 newdata.append(data[0][j])
@@ -106,5 +159,25 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
             # Save the data with the right order in the csv file.
             saveData(newdata,clusterNum)
         
+def MakeDist_id(clusterNum,id,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
+    data=id_to_image(id)
+    now=time.localtime()
 
-MakeDist(5,data="C:/Users/master/Desktop/Blue/01.jpg")
+    outputFileName =str(now.tm_year)+"_"+str(now.tm_mon)+"_"+str(now.tm_mday)+"_"+str(now.tm_hour)+"_"+str(now.tm_min)+"_"+str(now.tm_sec)+"."+ "jpg"
+    filedir=os.getcwd()
+    strlen=len(filedir)
+    filedir=filedir[0:strlen-11]
+    filedir=filedir+'/Client_data/'+id
+    if not os.path.exists(filedir):
+        os.mkdir(filedir)
+    filedir=filedir+'/Picture/'
+    if not os.path.exists(filedir):
+        os.mkdir(filedir)
+    filedir=filedir+'MJPG/'
+    if not os.path.exists(filedir):
+        os.mkdir(filedir)
+    filedir=filedir +outputFileName
+
+    cv2.imwrite(filedir, data)
+    print("befores")
+    MakeDist(clusterNum,filedir,hlist,sup,sdown,vup,vdown)

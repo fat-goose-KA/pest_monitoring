@@ -45,9 +45,6 @@ def roi_save(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img
 
     th, im_otsu = cv2.threshold(closing, 10, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-    cv2.imshow("otsu",im_otsu)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
 
     output= cv2.connectedComponentsWithStats(im_otsu) # 4 or 8
@@ -169,7 +166,7 @@ def roi_save(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img
 
 
 def roi_save_new(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img_file: file name
-
+    print(img_file)
     im_in = cv2.imread(img_file, cv2.IMREAD_COLOR)
     if im_in is None:
         raise NameError('in roi function, incorrect filename, address or empty file')
@@ -250,10 +247,6 @@ def roi_save_new(img_file, thresh_size, distance_threshold,newFile,imageShow):  
     result = cv2.cvtColor(img_YUV, cv2.COLOR_YUV2BGR)
 
 
-    cv2.imshow("otsu",result)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
     gray = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
     # hsv eliminate blue one
     hsv = cv2.cvtColor(result, cv2.COLOR_BGR2HSV)
@@ -266,10 +259,6 @@ def roi_save_new(img_file, thresh_size, distance_threshold,newFile,imageShow):  
     res = cv2.bitwise_and(gray, gray, mask=(mask))
     res = cv2.bitwise_and(res, res, mask=(mask2))
     res = cv2.bitwise_and(res, res, mask=mask3)
-
-    cv2.imshow("otsu",res)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
 
     # fill the blank and delete noise

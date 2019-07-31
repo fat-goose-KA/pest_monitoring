@@ -40,7 +40,9 @@ def plot_colors(hist, centroids):
 
 def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     result=[]
+    
     for src in data:
+        # src = np.float32(src)
         # Check the initial time
         start = time.time() 
         # Read the data from the directory named data.
@@ -119,19 +121,19 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
 
         # openCV get a image as a BGR format
         # Convert the image to RGB format
-        if imageShow==True:
-            cv2.imshow("letmesee",bgr)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()     #for check whether filtering has proccessed well
+        #for check whether filtering has proccessed well
 
         rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
 
         # Reshape for applying Kmean function to the image.
         rgb = rgb.reshape(rgb.shape[0] * rgb.shape[1], 3)
-
+        print(len(rgb))
+        print("==============")
         # The masked area has v==0 for HSV value
         k=0
         bdelete = []
+        for j in range(0,10):
+            print(rgb[j])
         for i in rgb:
             if i[2]==0:
 
@@ -141,8 +143,10 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
 
         #Delete the Masked area from the image.
         rgb2=np.delete(rgb, bdelete,0)
-        if len(rgb2)==0:
+        print(len(rgb2))
+        if len(rgb2)<5:
             rgb2=np.array([[0,0,0],[1,1,1],[1,0,0],[0,1,0],[0,0,1]])
+        print(len(rgb2))
         # The number of cluster is 5
         clusterNum = 5 
 
