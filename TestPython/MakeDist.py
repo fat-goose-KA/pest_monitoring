@@ -104,7 +104,7 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     # Set the initial variable
     dist_avg_data=[]
 
-    each_labeled, imgs = roi_save_new(data,300,10,imageShow = False,newFile = True)
+    each_labeled, imgs = roi_save(data,300,10,imageShow = False,newFile = True)
 
 
     datalist = getColor2(each_labeled,sizethreshold=300,distance_threshold=10,imageShow = False, autoSetting=True,sup=sup,sdown=sdown,vup=vup,vdown=vdown)

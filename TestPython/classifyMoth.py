@@ -21,7 +21,7 @@ def distanceHSV(a,b):
     h = abs(a[0]-b[0])
     s = abs(a[1]-b[1])
     v = abs(a[2]-b[2])
-    result = ((2*s*h/5)**2+(6*v)**2+(20*s/3.141592)**2)**(1/2)
+    result = ((4*s*h/5)**2+(6*v)**2+(20*s/3.141592)**2)**(1/2)
     return result
 
 def distanceEuc(a,b):
@@ -171,7 +171,6 @@ def classifyMoth(datalist,Save=False,BugName=["1","2","3","4"]):
                     s2 = data[1][k]
                     n1 = dist_num_data_total[l][j]
                     n2 = data[2][k]
-
                     Tvalue = distanceHSV(x1,x2)/(s1*s1/n1+s2*s2/n2)**0.5
                     dF = round(s1*s1/n1+s2*s2/n2)**2/((s1*s1/n1)/(n1-1)+(s2*s2/n2)**2/(n2-1))
                     
@@ -223,7 +222,8 @@ def classifyMoth(datalist,Save=False,BugName=["1","2","3","4"]):
                     break
             if cluster==-1:
                 break
-        
+        if clusterDistance >200:
+            cluster = -1
         print(clusterDistance)
         # change the new image data to
         newdata=[]

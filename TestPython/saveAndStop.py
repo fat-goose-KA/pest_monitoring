@@ -14,6 +14,8 @@ except: #python2
 url="http://192.168.0.145:8000/camera/jpeg"
 end = 'taskkill /f /im cam2web.exe' 
 num = 0
+
+
 while True:
 
     # a,b,c,d=combined_code_id(id="mujin",sizethreshold=100,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)

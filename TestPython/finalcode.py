@@ -3,6 +3,7 @@ from classifyMoth import classifyMoth
 from classifyMoth import classifyMoth_distance
 from roi_save_return import roi_save
 from roi_save_return import roi_save_new
+from roi_save_return import roi_save_new_general
 from save_as_csv import saveDataAsCsv
 from save_as_image import saveDataAsImage
 import time
@@ -73,7 +74,8 @@ def id_to_image(id):
 def combined_code (id,data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,BugName=["1","2","3","4"],newFile=False,saveImage=False):
 
-    each_labeled, imgs = roi_save_new(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
+    each_labeled, imgs = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
+    # each_labeled, imgs = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
 
 
     datalist = getColor2(each_labeled,sizethreshold,distance_threshold,autoSetting=autoSetting,imageShow=imageShow,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)

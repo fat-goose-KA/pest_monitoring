@@ -93,47 +93,51 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
 
             hlist = [[mh+3,mh-3]]
 
-            if ms<40:
-                sdown = min(ms+10,40)
-            elif ms>220:
-                sup = max(ms-10,220)
-            if mv<40:
-                vdown = min(mv+10,40)
-            elif mv>220:
-                vup = max(mv-10,220)
+            sdown = ms - 5
+            vdown = mv - 5
+            sup = ms + 5
+            vup = mv + 5
         # print("")
         # print(hlist, sdown,sup,vdown,vup)
         # print("")
-        mask = cv2.inRange(v,1,254)
-        mask2 = cv2.inRange(s,1,254)
+        # mask = cv2.inRange(v,1,254)
+        # mask2 = cv2.inRange(s,1,254)
         mask3_up = cv2.inRange(h,125,180)
         mask3_down = cv2.inRange(h,0,80)
-        mask3=(mask3_up+mask3_down)
-        # mask = cv2.inRange(v,vdown,vup)
-        # mask2 = cv2.inRange(s,sdown,sup)
-        # mask3 = cv2.inRange(h,0,180)
-        # for i in hlist:
-        #     mask3 = mask3 + cv2.inRange(h,i[0],i[1])
+        mask3 = (mask3_up+mask3_down)
+        mask = cv2.inRange(v,vup,255) + cv2.inRange(v,0,vdown)
+        mask2 = cv2.inRange(s,sup,255) + cv2.inRange(s,0,sdown)
+        for i in hlist:
+            mask3 = mask3 + cv2.inRange(h,i[0],i[1])
 
         res = cv2.bitwise_and(src, src, mask=mask)
         res = cv2.bitwise_and(res, res, mask=mask2)
         bgr = cv2.bitwise_and(res, res, mask=mask3)
 
+        if imageShow == True:
+            cv2.imshow('bgr',bgr)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
         # openCV get a image as a BGR format
         # Convert the image to RGB format
         #for check whether filtering has proccessed well
+
+        # kernel = np.ones((2,2),np.uint8)
+        # closing = cv2.morphologyEx(bgr, cv2.MORPH_CLOSE, kernel)    
+        # opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
+        # if imageShow == True:
+        #     cv2.imshow('bgr',opening)
+        #     cv2.waitKey(0)
+        #     cv2.destroyAllWindows()
+        # bgr = opening
 
         rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
 
         # Reshape for applying Kmean function to the image.
         rgb = rgb.reshape(rgb.shape[0] * rgb.shape[1], 3)
-        print(len(rgb))
-        print("==============")
         # The masked area has v==0 for HSV value
         k=0
         bdelete = []
-        for j in range(0,10):
-            print(rgb[j])
         for i in rgb:
             if i[2]==0:
 
@@ -143,10 +147,8 @@ def getColor2(data,sizethreshold,distance_threshold,imageShow,autoSetting=False,
 
         #Delete the Masked area from the image.
         rgb2=np.delete(rgb, bdelete,0)
-        print(len(rgb2))
         if len(rgb2)<5:
             rgb2=np.array([[0,0,0],[1,1,1],[1,0,0],[0,1,0],[0,0,1]])
-        print(len(rgb2))
         # The number of cluster is 5
         clusterNum = 5 
 

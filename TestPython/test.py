@@ -8,43 +8,21 @@ from MakeDist import MakeDist
 from MakeDist import MakeDist_id
 import csv
 import itertools
-import matplotlib.pyplot as plt
-import matplotlib as mpl 
-import warnings
+import matplotlib.pyplot as plt     
+import matplotlib as mpl   
+import warnings                                                              
 import numpy as np  
 import os
-import platform 
+import platform       
                        
 warnings.filterwarnings(action="ignore", category=FutureWarning)                             
-
-#data="C:/Users/master/Desktop/Blue/07.jpg"      
+                                                    
+#data="C:/Users/master/Desktop/Blue/07.jpg"                                                                                                                 
 # a,b,c,d=combined_code_id(id="mujin",sizethreshold=100,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
-# a,b,c,d=combined_code(id="mujin",data="C:/Users/master/Desktop/Blue/03.jpg" ,sizethreshold=100,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
-                                                          
-# MakeDist_id(id = "mujin",clusterNum=8) 
-# MakeDist(clusterNum=5,data="C:/Users/master/Desktop/Blue/07.jpg")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+a,b,c,d=combined_code(id="mujin",data="C:/Users/master/Desktop/20190629/test3.jpg" ,sizethreshold=200,distance_threshold=10,imageShow=True,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
+print(a,b,c,d)                                                                            
+# MakeDist_id(id = "mujin",clusterNum=8)                                                                                 
+# MakeDist(clusterNum=10,data="C:/Users/master/Desktop/20190629/test3.jpg")
 _file=["C:/Users/master/Desktop/20190629/Smarf/code_combining/Picture/Adoxophyes orana/", 
 "C:/Users/master/Desktop/20190629/Smarf/code_combining/Picture/Archips breviplicanus/",
 "C:/Users/master/Desktop/20190629/Smarf/code_combining/Picture/Carposina sasakii Matsumura/",
