@@ -24,17 +24,6 @@ def distanceHSV(a,b):
     v = abs(a[2]-b[2])
     result = ((2*s*h/5)**2+(6*v)**2+(20*s/3.141592)**2)**(1/2)
     return result
-# 분석한 이미지 곤충 종류의 Number
-# ex) 복숭아 순나방의 경우 0번.
-# ex) clusterNum=2
-
-# 저장하고 싶은 이미지들의 리스트
-# ex) imglist=["C:/Users/master/Desktop/20190629/Smarf/Picture/Carposina sasakii Matsumura/03_11.bmp",
-# ex) "C:/Users/master/Desktop/20190629/Smarf/Picture/Carposina sasakii Matsumura/03_12.bmp"]
-
- 
-# 스마프 파일이 저장된 위치
-# ex) direc ="C:/Users/master/Desktop/20190629/Smarf"
 
 def id_to_ip(id):
     filedir=os.getcwd()
