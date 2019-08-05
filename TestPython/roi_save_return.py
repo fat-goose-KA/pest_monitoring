@@ -8,7 +8,7 @@ import numpy as np
 ####################################################################################
 
 
-def roi_save(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img_file: file name
+def roi_save(img_file, thresh_size_max, thresh_size_min, distance_threshold,newFile,imageShow):  #img_file: file name
     im_in = cv2.imread(img_file, cv2.IMREAD_GRAYSCALE)
     if im_in is None:
         raise NameError('in roi function, incorrect filename, address or empty file')
@@ -104,7 +104,9 @@ def roi_save(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img
     new_list=[]
     for i in range(1,output[0]):
         # print("huh")
-        if (output[2][i,cv2.CC_STAT_AREA]<thresh_size):
+        if (output[2][i,cv2.CC_STAT_AREA]<thresh_size_min):
+            continue
+        if (output[2][i,cv2.CC_STAT_AREA]>thresh_size_max):
             continue
         x0=output[2][i,cv2.CC_STAT_LEFT]
         y0=output[2][i,cv2.CC_STAT_TOP]
@@ -178,7 +180,7 @@ def roi_save(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img
 ########################################################################
 
 
-def roi_save_new(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img_file: file name
+def roi_save_new(img_file, thresh_size_max,thresh_size_min,  distance_threshold,newFile,imageShow):  #img_file: file name
     im_in = cv2.imread(img_file, cv2.IMREAD_COLOR)
     if im_in is None:
         raise NameError('in roi function, incorrect filename, address or empty file')
@@ -278,8 +280,11 @@ def roi_save_new(img_file, thresh_size, distance_threshold,newFile,imageShow):  
     new_data=[]
     new_list=[]
     for i in range(1,output[0]):
-        if (output[2][i,cv2.CC_STAT_AREA]<thresh_size):
+        if (output[2][i,cv2.CC_STAT_AREA]<thresh_size_min):
             continue
+        if (output[2][i,cv2.CC_STAT_AREA]>thresh_size_max):
+            continue
+            
         x0=output[2][i,cv2.CC_STAT_LEFT]
         y0=output[2][i,cv2.CC_STAT_TOP]
         x=output[2][i,cv2.CC_STAT_WIDTH]
@@ -334,7 +339,7 @@ def roi_save_new(img_file, thresh_size, distance_threshold,newFile,imageShow):  
 ########################################################################
 
 
-def roi_save_new_general(img_file, thresh_size, distance_threshold,newFile,imageShow):  #img_file: file name
+def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,  distance_threshold,newFile,imageShow):  #img_file: file name
     im_in = cv2.imread(img_file, cv2.IMREAD_COLOR)
     if im_in is None:
         raise NameError('in roi function, incorrect filename, address or empty file')
@@ -419,25 +424,21 @@ def roi_save_new_general(img_file, thresh_size, distance_threshold,newFile,image
 
     mv=Cmax
 
-    # print(mh,ms,mv)
+    print(mh,ms,mv)
     # print("++++++++++++++++changed h,s,v+++++++++++++++")
 
-    hlist = [[mh+8,mh-8]]
-    sdown = ms - 30
-    vdown = mv - 30
-    sup = ms + 30
-    vup = mv + 30
+    sdown = ms - 20
+    vdown = mv - 20
+    sup = ms + 20
+    vup = mv + 20
     # hsv eliminate blue one
     mask = cv2.inRange(v,vup,255) + cv2.inRange(v,0,vdown)
     mask2 = cv2.inRange(s,sup,255) + cv2.inRange(s,0,sdown)
-    mask3 = cv2.inRange(h,0,180)
-    for i in hlist:
-        mask3 = mask3 + cv2.inRange(h,i[0],i[1])
-
+    mask3 = cv2.inRange(h,mh+8,180)+ cv2.inRange(h,0,mh-8)
     res = cv2.bitwise_and(gray, gray, mask=mask)
     res = cv2.bitwise_and(res, res, mask=mask2)
     bgr = cv2.bitwise_and(res, res, mask=mask3)
-
+    
     cv2.imshow("realrealreal", bgr)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -482,7 +483,9 @@ def roi_save_new_general(img_file, thresh_size, distance_threshold,newFile,image
     new_data=[]
     new_list=[]
     for i in range(1,output[0]):
-        if (output[2][i,cv2.CC_STAT_AREA]<thresh_size):
+        if (output[2][i,cv2.CC_STAT_AREA]<thresh_size_min):
+            continue
+        if (output[2][i,cv2.CC_STAT_AREA]>thresh_size_max):
             continue
         x0=output[2][i,cv2.CC_STAT_LEFT]
         y0=output[2][i,cv2.CC_STAT_TOP]

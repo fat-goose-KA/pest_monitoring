@@ -6,6 +6,7 @@ from classifyMoth import classifyMoth
 from classifyMoth import classifyMoth_distance
 from roi_save_return import roi_save
 from roi_save_return import roi_save_new
+from roi_save_return import roi_save_new_general
 from save_as_csv import saveDataAsCsv
 from save_as_image import saveDataAsImage
 from readcsv import saveData
@@ -24,16 +25,14 @@ def distanceHSV(a,b):
     v = abs(a[2]-b[2])
     result = ((2*s*h/5)**2+(6*v)**2+(20*s/3.141592)**2)**(1/2)
     return result
-# 분석한 이미지 곤충 종류의 Number
-# ex) 복숭아 순나방의 경우 0번.
 # ex) clusterNum=2
 
-# 저장하고 싶은 이미지들의 리스트
+# Location of Image
 # ex) imglist=["C:/Users/master/Desktop/20190629/Smarf/Picture/Carposina sasakii Matsumura/03_11.bmp",
 # ex) "C:/Users/master/Desktop/20190629/Smarf/Picture/Carposina sasakii Matsumura/03_12.bmp"]
 
  
-# 스마프 파일이 저장된 위치
+# Location of Smarf Folder
 # ex) direc ="C:/Users/master/Desktop/20190629/Smarf"
 
 def id_to_ip(id):
@@ -88,7 +87,7 @@ def id_to_image(id):
         raise NameError('incorrect url. Double check it')
 
 
-def MakeDist(clusterNum,data,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
+def MakeDist(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_min=100,sup=254,sdown=1,vup=254,vdown=1):
 
     dirName=os.getcwd()
     strlen=len(dirName)
@@ -104,10 +103,10 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     # Set the initial variable
     dist_avg_data=[]
 
-    each_labeled, imgs = roi_save(data,300,10,imageShow = False,newFile = True)
+    each_labeled, imgs = roi_save_new_general(data,thresh_size_max= thresh_size_max ,thresh_size_min= thresh_size_min, distance_threshold=10,imageShow = False,newFile = True)
 
 
-    datalist = getColor2(each_labeled,sizethreshold=300,distance_threshold=10,imageShow = False, autoSetting=True,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
+    datalist, deletenum= getColor2(each_labeled,distance_threshold=10,imageShow = False, autoSetting=True,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
 
 
 
