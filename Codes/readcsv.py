@@ -39,7 +39,7 @@ def readData(fileList):
 def saveData(data, clusterNum,dirName=os.getcwd()):
     dirName=os.getcwd()
     strlen=len(dirName)
-    dirName = dirName[0:strlen-11]
+    dirName = dirName[0:strlen-6]
 
     if platform.system() == "Windows":
         dirName=  dirName.replace("\\","/")

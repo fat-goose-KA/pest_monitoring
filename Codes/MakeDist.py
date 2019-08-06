@@ -38,7 +38,7 @@ def distanceHSV(a,b):
 def id_to_ip(id):
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=os.getcwd()[0:strlen-11]+'/Client_data/'
+    filedir=os.getcwd()[0:strlen-6]+'/Client_data/'
     txt_name='client_data.txt'
     
     try:
@@ -91,7 +91,7 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_mi
 
     dirName=os.getcwd()
     strlen=len(dirName)
-    dirName = dirName[0:strlen-11]
+    dirName = dirName[0:strlen-6]
     if platform.system() == "Windows":
         dirName=  dirName.replace("\\","/")
     # Change the direcoty to real directory of data
@@ -165,7 +165,7 @@ def MakeDist_id(clusterNum,id,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     outputFileName =str(now.tm_year)+"_"+str(now.tm_mon)+"_"+str(now.tm_mday)+"_"+str(now.tm_hour)+"_"+str(now.tm_min)+"_"+str(now.tm_sec)+"."+ "jpg"
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=filedir[0:strlen-11]
+    filedir=filedir[0:strlen-6]
     filedir=filedir+'/Client_data/'+id
     if not os.path.exists(filedir):
         os.mkdir(filedir)

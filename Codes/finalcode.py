@@ -21,7 +21,7 @@ except: #python2
 def id_to_ip(id):
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=os.getcwd()[0:strlen-11]+'/Client_data/'
+    filedir=os.getcwd()[0:strlen-6]+'/Client_data/'
     txt_name='client_data.txt'
     
     try:
@@ -103,7 +103,7 @@ def combined_code_id (id, sizethreshold,distance_threshold,autoSetting=False,hli
     outputFileName =str(now.tm_year)+"_"+str(now.tm_mon)+"_"+str(now.tm_mday)+"_"+str(now.tm_hour)+"_"+str(now.tm_min)+"_"+str(now.tm_sec)+"."+ "jpg"
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=filedir[0:strlen-11]
+    filedir=filedir[0:strlen-6]
     filedir=filedir+'/Client_data/'+id
     if not os.path.exists(filedir):
         os.mkdir(filedir)

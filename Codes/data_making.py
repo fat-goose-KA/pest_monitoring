@@ -7,8 +7,53 @@ import numpy as np
 
 
 def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #img_file: file name
-    im_color=cv2.imread(img_file, cv2.IMREAD_COLOR)
-    im_in = cv2.imread(img_file, cv2.IMREAD_GRAYSCALE)
+
+####################################################################################################
+    im_in = cv2.imread(img_file, cv2.IMREAD_COLOR)
+    if im_in is None:
+        raise NameError('in roi function, incorrect filename, address or empty file')
+    img_YUV = cv2.cvtColor(im_in, cv2.COLOR_BGR2YUV)
+    y = img_YUV[:,:,0]    
+    
+    rows = y.shape[0]    
+    cols = y.shape[1]
+    
+    ### illumination elements reflectance elements
+    imgLog = np.log1p(np.array(y, dtype='float') / 255) # 
+    
+    M = 2*rows + 1
+    N = 2*cols + 1
+    sigma = 10
+    (X, Y) = np.meshgrid(np.linspace(0, N-1, N), np.linspace(0, M-1, M)) 
+    Xc = np.ceil(N/2) 
+    Yc = np.ceil(M/2)
+    gaussianNumerator = (X - Xc)**2 + (Y - Yc)**2 
+    
+    LPF = np.exp(-gaussianNumerator / (2*sigma*sigma))
+    HPF = 1 - LPF
+    
+    LPF_shift = np.fft.ifftshift(LPF.copy())
+    HPF_shift = np.fft.ifftshift(HPF.copy())
+    img_FFT = np.fft.fft2(imgLog.copy(), (M, N))
+    img_LF = np.real(np.fft.ifft2(img_FFT.copy() * LPF_shift, (M, N)))
+    img_HF = np.real(np.fft.ifft2(img_FFT.copy() * HPF_shift, (M, N)))
+    
+    gamma1 = 0.3
+    gamma2 = 1.5
+    img_adjusting = gamma1*img_LF[0:rows, 0:cols] + gamma2*img_HF[0:rows, 0:cols]
+    
+    img_exp = np.expm1(img_adjusting) # exp(x) + 1
+    img_exp = (img_exp - np.min(img_exp)) / (np.max(img_exp) - np.min(img_exp))
+    img_out = np.array(255*img_exp, dtype = 'uint8') 
+    
+    img_YUV[:,:,0] = img_out
+    result = cv2.cvtColor(img_YUV, cv2.COLOR_YUV2BGR)
+
+
+####################################################################################################
+
+    im_color=result.copy()
+    im_in = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
     im_in = clahe.apply(im_in)
     if im_in is None:
@@ -109,32 +154,27 @@ def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #
         cv2.destroyAllWindows() 
         for_now=mask1 | im_th    # -> line and background: 255, left : black
 
-        cv2.imshow("background including grid white?", for_now)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()     #for check whether filtering has proccessed well
+        # cv2.imshow("background including grid white?", for_now)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()     #for check whether filtering has proccessed well
         
         im_floodfill = for_now.copy()
         h, w = im_floodfill.shape[:2]
         mask = np.zeros((h+2, w+2), np.uint8)
         cv2.floodFill(for_now, mask, (0,0), 255)
-        cv2.imshow("floodfill?", for_now)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imshow("floodfill?", for_now)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
         # im_out = for_now | im_floodfill_inv
         im_out=for_now.copy()
-        cv2.imshow("or merge", im_out)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imshow("or merge", im_out)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
         th, im_twocol = cv2.threshold(im_out, threshold_threshold, 255, cv2.THRESH_BINARY)   ## use  filter again
-
-        cv2.imshow("adfadad", im_twocol)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()     #for check whether filtering has proccessed well
-
-        kernel = np.ones((4,4),np.uint8)
+        kernel = np.ones((5,5),np.uint8)
         closing = cv2.morphologyEx(im_twocol, cv2.MORPH_CLOSE, kernel)    
         closing = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
-        for i in range(30):
+        for i in range(1):
             closing = cv2.morphologyEx(closing, cv2.MORPH_CLOSE, kernel)    
             closing = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)            
 
@@ -171,9 +211,9 @@ def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #
             #     flagg=False
             #     newx=x1
             #     newy=y1
-        cv2.imshow("otsu",im_otsu)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imshow("otsu",im_otsu)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
         subimg=im_color[y0:y+y0,x0:x+x0]
         if flag==True:
             # if flagg==False:
@@ -181,12 +221,12 @@ def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #
             data_img.append(subimg)
             data_list.append(str(x0)+','+str(y0)+','+str(x)+','+str(y))
         # # if imageShow == True:
-        cv2.imshow("sub",subimg)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imshow("sub",subimg)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
     print(len(data_list))
 
-    new_data=[]
-    return new_data
-
-training_data_making("/Users/moojin/Dropbox/Codes/python/figure2.jpg", thresh_size=500, distance_threshold=10,newFile=True)
+    # new_data=[]
+    return data_list
+# training_data_making("/Users/moojin/Dropbox/Codes/python/pest_monitoring/Picture/MJPG/3_2.png", thresh_size=500, distance_threshold=10,newFile=True)
+# training_data_making("/Users/moojin/Dropbox/Codes/python/figure2.jpg", thresh_size=500, distance_threshold=10,newFile=True)

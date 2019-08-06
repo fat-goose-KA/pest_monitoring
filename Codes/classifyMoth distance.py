@@ -57,7 +57,7 @@ def classifyMoth_distance(datalist,Save=False,BugName=["1","2","3","4"]):
 
     strlen=len(filedir)
 
-    filedir=os.getcwd()[0:strlen-11]+'/MothData/'
+    filedir=os.getcwd()[0:strlen-6]+'/MothData/'
 
     dirlist=os.listdir(filedir)
 
@@ -91,7 +91,7 @@ def classifyMoth_distance(datalist,Save=False,BugName=["1","2","3","4"]):
 
     #nonfileList=["/Users/moojin/Dropbox/Codes/python/code_combining/NonBugData/NonBugData01.csv"]  ##change later
 
-    _filedir=os.getcwd()[0:strlen-11]+'/NonBugData/'
+    _filedir=os.getcwd()[0:strlen-6]+'/NonBugData/'
 
     if platform.system() == "Windows":
 

@@ -15,7 +15,7 @@ def saveDataAsImage(id,imageData, clusterData, bugName):
     strlen=len(fileDir)
     print(os.getcwd()[0:strlen])
     nowTime = now.strftime('%m-%d %H-%M-%S')    
-    fileDir=os.getcwd()[0:strlen-11]+'/Client_data/'+id+'/ImageData'
+    fileDir=os.getcwd()[0:strlen-6]+'/Client_data/'+id+'/ImageData'
     if platform.system() == "Windows":
         fileDir=  fileDir.replace("\\","/")
 

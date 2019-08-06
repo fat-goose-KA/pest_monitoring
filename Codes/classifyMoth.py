@@ -38,7 +38,7 @@ def classifyMoth(datalist,Save=False,BugName=["1","2","3","4"]):
     
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=os.getcwd()[0:strlen-11]+'/MothDataHsv/'
+    filedir=os.getcwd()[0:strlen-6]+'/MothDataHsv/'
     dirlist=os.listdir(filedir)
     fileList=[]
     for i in dirlist:
@@ -54,7 +54,7 @@ def classifyMoth(datalist,Save=False,BugName=["1","2","3","4"]):
     # Get Color from moth data
     dist_avg_data_total=[]
     #nonfileList=["/Users/moojin/Dropbox/Codes/python/code_combining/NonBugData/NonBugData01.csv"]  ##change later
-    _filedir=os.getcwd()[0:strlen-11]+'/NonBugData/'
+    _filedir=os.getcwd()[0:strlen-6]+'/NonBugData/'
     if platform.system() == "Windows":
         _filedir=  _filedir.replace("\\","/")
 
@@ -271,7 +271,7 @@ def classifyMoth_distance(datalist,Save=False,BugName=["1","2","3","4"]):
 
     strlen=len(filedir)
 
-    filedir=os.getcwd()[0:strlen-11]+'/MothDataHsv/'
+    filedir=os.getcwd()[0:strlen-6]+'/MothDataHsv/'
 
     dirlist=os.listdir(filedir)
 
@@ -299,7 +299,7 @@ def classifyMoth_distance(datalist,Save=False,BugName=["1","2","3","4"]):
 
     #nonfileList=["/Users/moojin/Dropbox/Codes/python/code_combining/NonBugData/NonBugData01.csv"]  ##change later
 
-    _filedir=os.getcwd()[0:strlen-11]+'/NonBugData/'
+    _filedir=os.getcwd()[0:strlen-6]+'/NonBugData/'
 
     if platform.system() == "Windows":
         _filedir=  _filedir.replace("\\","/")

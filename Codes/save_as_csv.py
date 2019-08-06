@@ -20,7 +20,7 @@ def saveDataAsCsv(id, data ,bugName,newFile=False):
     filedir=os.getcwd()
     strlen=len(filedir)
 
-    filedir=os.getcwd()[0:strlen-11]+'/Client_data/'+id
+    filedir=os.getcwd()[0:strlen-6]+'/Client_data/'+id
 
     if not os.path.exists(filedir):
         os.mkdir(filedir)

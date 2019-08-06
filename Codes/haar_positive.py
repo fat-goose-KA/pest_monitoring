@@ -3,6 +3,7 @@ from classifyMoth import classifyMoth
 from roi_save_return import roi_save
 from save_as_csv import saveDataAsCsv
 from save_as_image import saveDataAsImage
+from data_making import training_data_making
 import time
 import os
 # import dlib
@@ -23,7 +24,9 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
     global up
     global down
     global result_lst
-    each_labeled, each_data = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
+    # each_labeled, each_data = roi_save(data,5000,300,distance_threshold,newFile = ndewFile,imageShow=imageShow)
+    each_data=training_data_making(data,sizethreshold,distance_threshold,newFile)
+    print(each_data)
     test_image=cv2.imread(data,cv2.IMREAD_COLOR)
     confirm_image=cv2.imread(data,cv2.IMREAD_COLOR)
     original_image=cv2.imread(data,cv2.IMREAD_COLOR)
@@ -97,13 +100,13 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
     cv2.destroyAllWindows()
     while (cha!=100):
         termination=0
-        ix,iy=-1,-1
+        # ix,iy=-1,-1
         up=False
         down=False
         # while (termination!=100):
         cv2.namedWindow("draw with mouse")
         cv2.setMouseCallback("draw with mouse", draw_box)
-        cv2.imshow("draw with mouse",test_image)
+        cv2.imshow("draw with mouse",confirm_image)
         cha=cv2.waitKey(1)
         # cv2.destroyAllWindows()
         # cv2.imshow("If there's no more objects, press d. To add more objects, press space for every turn",confirm_image) #d: 100 space: 32
@@ -112,5 +115,5 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
     return result_lst
 
 
-res=haar_training(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/code_combining_moojin/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
+res=haar_training(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/pest_monitoring/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
 print(res)

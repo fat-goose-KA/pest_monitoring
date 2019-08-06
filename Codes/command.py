@@ -22,7 +22,7 @@ import numpy as np
 def read(length):
     dirName=os.getcwd()
     strlen=len(dirName)
-    dirName = dirName[0:strlen-11]+'/Client_data/'+sys.argv[2]+'/TimeData/'
+    dirName = dirName[0:strlen-6]+'/Client_data/'+sys.argv[2]+'/TimeData/'
     dirlist=os.listdir(dirName)
     last_file=dirlist[0]
     f=open(dirName+last_file,"r")

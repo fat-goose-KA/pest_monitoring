@@ -56,17 +56,7 @@ def roi_save(img_file, thresh_size_max, thresh_size_min, distance_threshold,newF
     cv2.destroyAllWindows() 
 
 
-    output= cv2.connectedComponentsWithStats(im_otsu) # 4 or 8
-    # def drawbox(im, stats):
-    #     for i in range(1,stats[0]):
-    #         print("huh")
-    #         x0=stats[2][i,cv2.CC_STAT_LEFT]
-    #         y0=stats[2][i,cv2.CC_STAT_TOP]
-    #         x=stats[2][i,cv2.CC_STAT_WIDTH]
-    #         y=stats[2][i,cv2.CC_STAT_HEIGHT]
-    #         cv2.rectangle(im,(x0,y0),(x0+x,y0+y),(255,255,255),10)
-    # drawbox(im_otsu, output)
-
+    output= cv2.connectedComponentsWithStats(im_otsu) 
 
 
     ######################################################
@@ -75,7 +65,7 @@ def roi_save(img_file, thresh_size_max, thresh_size_min, distance_threshold,newF
     im_origin2 = cv2.imread(img_file, cv2.IMREAD_COLOR)
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=os.getcwd()[0:strlen-11]+'/roi_log/'
+    filedir=os.getcwd()[0:strlen-6]+'/roi_log/'
     if platform.system() == "Windows":
         filedir=  filedir.replace("\\","/")
     txt_name="1.txt"
@@ -257,7 +247,7 @@ def roi_save_new(img_file, thresh_size_max,thresh_size_min,  distance_threshold,
     im_origin2 = result
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=os.getcwd()[0:strlen-11]+'/roi_log/'
+    filedir=os.getcwd()[0:strlen-6]+'/roi_log/'
     if platform.system() == "Windows":
         filedir=  filedir.replace("\\","/")
     txt_name="1.txt"
@@ -460,7 +450,7 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,  distance_th
     im_origin2 = result
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=os.getcwd()[0:strlen-11]+'/roi_log/'
+    filedir=os.getcwd()[0:strlen-6]+'/roi_log/'
     if platform.system() == "Windows":
         filedir=  filedir.replace("\\","/")
     txt_name="1.txt"

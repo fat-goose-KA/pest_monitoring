@@ -1,7 +1,7 @@
 import os
 import time
 import sys
-# client data: username/ password? / raspberrypi ip address
+# client data: username/ raspberrypi ip address
 
 
 
@@ -22,7 +22,7 @@ def main() :
         return 0
     filedir=os.getcwd()
     strlen=len(filedir)
-    filedir=os.getcwd()[0:strlen-11]+'/Client_data/'
+    filedir=os.getcwd()[0:strlen-6]+'/Client_data/'
     txt_name='client_data.txt'
     try:
         f = open(filedir+txt_name, 'r')
