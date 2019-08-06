@@ -18,21 +18,32 @@ import platform
 import csv
 import platform
 import numpy as np
-                       
+#/Users/moojin/Dropbox/Codes/python/code_combining/TestPython
+def read(length):
+    dirName=os.getcwd()
+    strlen=len(dirName)
+    dirName = dirName[0:strlen-11]+'/Client_data/'+sys.argv[2]+'/TimeData/'
+    dirlist=os.listdir(dirName)
+    last_file=dirlist[0]
+    f=open(dirName+last_file,"r")
+    x = csv.reader(f)
+    xlist=[]
+    for j in x:
+        if j!=[]:
+            xlist.append(j)
+    f.close()
+    print(dirlist)
+    print(last_file)
+    print(xlist)
+
+
 warnings.filterwarnings(action="ignore", category=FutureWarning)    
 ##sys input:: python ~.py new id
-if (len(sys.argv)<4):
+print(sys.argv)
+if (len(sys.argv)<3):
     print("please write option and your id")
 else:
-    if (sys.argv[2]=="new"):
-        a,b,c,d=combined_code_id(id=sys.argv[3],sizethreshold=500,distance_threshold=30,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=False)
-    elif (sys.argv[2]=="total"):
-        a,b,c,d=combined_code_id(id=sys.argv[3],sizethreshold=500,distance_threshold=30,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
-    elif(sys.argv[2]=="log"):
-        filedir='d'
-        f=open(filedir,"r")
-        x = csv.reader(f)
-        xlist=[]
-        for j in x:
-            if j!=[]:
-                xlist.append(j)        
+    if (sys.argv[1]=="new"):
+        read(1)
+    elif (sys.argv[1]=="total"):
+        read(5)

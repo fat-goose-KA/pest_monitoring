@@ -71,8 +71,7 @@ def id_to_image(id):
         raise NameError('incorrect url. Double check it')
 
 
-def combined_code (id,data,thresh_size_max,thresh_size_min,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
-,Save=False,imageShow=False,BugName=["1","2","3","4"],newFile=False,saveImage=False):
+def combined_code (id,data,thresh_size_max,thresh_size_min,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1,Save=False,imageShow=False,BugName=["1","2","3","4"],newFile=False,saveImage=False):
 
     each_labeled, imgs = roi_save_new_general(img_file=data, thresh_size_max= thresh_size_max ,thresh_size_min= thresh_size_min, distance_threshold=distance_threshold,newFile = newFile,imageShow=imageShow)
     # each_labeled, imgs = roi_save(data,sizethreshold,distance_threshold,newFile = newFile,imageShow=imageShow)
