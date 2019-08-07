@@ -1,13 +1,11 @@
 import numpy as np
 import cv2
-moth_cascade = cv2.CascadeClassifier('output.xml')
-#eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
-# img = cv2.imread('/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/3_2.png')
-img = cv2.imread('/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/2_1.jpeg')
-# for i in range(len(img)):
-#    for j in range(len(im_in[0])):
-#       if (im_in[i][j]<140):
-#             im_in[i][j]=255
+import time
+import socket
+moth_cascade = cv2.CascadeClassifier('/Users/moojin/Dropbox/Codes/python/pest_monitoring/Codes/0807_7stage.xml')
+ip=socket.gethostbyname(socket.gethostname())
+print(ip)
+img = cv2.imread('/Users/moojin/Dropbox/bugimages/3.jpg')
 print(len(img))
 print(len(img[0]))
 # img=img[1000:1500,1000:2000]
@@ -28,8 +26,8 @@ for (x,y,w,h) in moth:
    # for (ex,ey,ew,eh) in eyes:
    #     cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
 print(count)
-# cv2.imwrite("0718result.jpg",img)
 cv2.imshow("after",img)
+# time.sleep(30)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
