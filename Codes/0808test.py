@@ -7,7 +7,7 @@ try: #python3
     from urllib.request import urlopen
 except: #python2
     from urllib import urlopen
-moth_cascade = cv2.CascadeClassifier('whynot.xml')
+moth_cascade = cv2.CascadeClassifier('output.xml')
 #ip=socket.gethostbyname(socket.gethostname())
 ip=socket.gethostbyname(socket.getfqdn())
 # print(ip)
