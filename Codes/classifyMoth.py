@@ -7,7 +7,6 @@ import math
 from readcsv import saveData
 from readcsv import readData
 from getColor import getColor2
-from callee import roi
 from scipy.stats import t
 
 
@@ -24,7 +23,7 @@ def distanceHSV(a,b):
     v = abs(a[2]-b[2])
     result = ((4*s*h/5)**2+(6*v)**2+(20*s/3.141592)**2)**(1/2)
     return result
-
+   
 def distanceEuc(a,b):
 
     return np.linalg.norm(a,b)

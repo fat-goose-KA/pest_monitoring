@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plts
-from callee import roi
 import time
 
 from roi_save_return import roi_save

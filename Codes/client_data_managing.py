@@ -11,7 +11,10 @@ def main() :
     print("This is client information program")
     print("Choose and write which work to do")
     print("1:make account   2:delete account    3:change account information    4:show list")
-    choice=raw_input()
+    try:
+        black_line_choice=raw_input()
+    except:
+        choice=str(input())     
     try:
         int_choice=int(choice)
         if (int_choice<1) or (int_choice>4):
@@ -55,11 +58,17 @@ def main() :
         flag=False
         while flag==False:
             print("write id: ")
-            id_trial=raw_input()
+            try:
+                id_trial=raw_input()
+            except:
+                id_trial=str(input())     
             if id_trial in old_id_list:
                 print("already exist name. use other name")
                 return 0
-            id_retry=raw_input("for check, rewrite your id: ")
+            try:
+                id_retry=raw_input("for check, rewrite your id: ")
+            except:
+                id_retry=str(input("for check, rewrite your id: "))     
             if (id_retry==id_trial):
                 flag=True
             else:
@@ -67,9 +76,15 @@ def main() :
         f.write(id_trial+'\t')
         flag2=False
         while flag2==False:
-            ip_address=raw_input("write ip address: ")
+            try:
+                ip_address=raw_input("write ip address: ")
+            except:
+                ip_address=str(input("write ip address: "))     
             print("check again, is it right? "+ip_address)
-            check=raw_input("if you checked, enter yes: ")
+            try:
+                check=raw_input("if you checked, enter yes: ")
+            except:
+                check=str(input("if you checked, enter yes: "))   
             if (check=="yes"):
                 flag2=True
         f.write(ip_address+"\n")
@@ -89,17 +104,26 @@ def main() :
     elif((int_choice==2) or (int_choice==3)):
         if(int_choice==3):
             print("write id: ")
-            id_login=raw_input()
+            try:
+                id_login=raw_input()
+            except:
+                id_login=str(input()) 
             try:
                 index=old_id_list.index(id_login)
-                new_ip_add=raw_input("write new ip address: ")
+                try:
+                    new_ip_add=raw_input("write new ip address: ")
+                except:
+                    new_ip_add=str(input("write new ip address: ")) 
                 old_ip_list[index]=new_ip_add
             except:
                 print("such id does not exist")     
                 return 0
         if(int_choice==2):
             print("write id: ")
-            id_login=raw_input()
+            try:
+                id_login=raw_input()
+            except:
+                id_login=str(input()) 
             try:
                 index=old_id_list.index(id_login)
                 length=len(old_id_list)
@@ -123,6 +147,9 @@ def main() :
 flag3=True
 while flag3==True:
     main()
-    inputt=raw_input("if you want to exit, enter \"exit\"")
+    try:
+        inputt=raw_input("if you want to exit, enter \"exit\"")
+    except:
+        inputt=str(input("if you want to exit, enter \"exit\"")) 
     if (inputt=="exit"):
         flag3=False

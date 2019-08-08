@@ -84,10 +84,6 @@ def id_to_image(id):
         image = np.asarray(bytearray(resp.read()), dtype="uint8")
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
     # return the image
-    
-
-
-    
         return image
     except:
         raise NameError('incorrect url. Double check it')
@@ -110,7 +106,7 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_mi
     # Set the initial variable
     dist_avg_data=[]
 
-    each_labeled, imgs = roi_save_new_general(data,thresh_size_max= thresh_size_max ,thresh_size_min= thresh_size_min, distance_threshold=10,imageShow = False,newFile = True)
+    each_labeled, imgs = roi_save_new_general(data,thresh_size_max= thresh_size_max ,thresh_size_min= thresh_size_min, distance_threshold=10,imageShow = False,newFile = newFile)
 
 
     datalist, deletenum= getColor2(each_labeled,distance_threshold=10,imageShow = False, autoSetting=True,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
@@ -165,7 +161,7 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_mi
             # Save the data with the right order in the csv file.
             saveData(newdata,clusterNum)
         
-def MakeDist_id(clusterNum,id,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
+def MakeDist_id(clusterNum,id,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1, newFile= True):
     data=id_to_image(id)
     now=time.localtime()
 
@@ -185,10 +181,10 @@ def MakeDist_id(clusterNum,id,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     filedir=filedir +outputFileName
 
     cv2.imwrite(filedir, data)
-    MakeDist(clusterNum=clusterNum,data=filedir,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
+    MakeDist(clusterNum=clusterNum,data=filedir,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown, newFile= newFile)
 
     
-def MakeDist_straight(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_min=100,sup=254,sdown=1,vup=254,vdown=1):
+def MakeDist_straight(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_min=100,sup=254,sdown=1,vup=254,vdown=1,newFile= True):
 
     dirName=os.getcwd()
     strlen=len(dirName)
