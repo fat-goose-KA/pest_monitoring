@@ -1,8 +1,3 @@
-from getColor import getColor2
-from classifyMoth import classifyMoth
-from roi_save_return import roi_save
-from save_as_csv import saveDataAsCsv
-from save_as_image import saveDataAsImage
 from data_making import training_data_making
 import time
 import os
@@ -17,14 +12,14 @@ ix,iy=-1,-1
 down=False
 up=False
 result_lst=[]
-def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
+def haar_training(data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,BugName=["1","2","3","4"],newFile=False,saveImage=False):
+    imgname=data
     global ix
     global iy
     global up
     global down
     global result_lst
-    # each_labeled, each_data = roi_save(data,5000,300,distance_threshold,newFile = ndewFile,imageShow=imageShow)
     each_data=training_data_making(data,sizethreshold,distance_threshold,newFile)
     print(each_data)
     test_image=cv2.imread(data,cv2.IMREAD_COLOR)
@@ -95,7 +90,7 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
                 cv2.imshow("draw with mouse",test_image)
                 termination=cv2.waitKey(1)
     cv2.destroyAllWindows()
-    cv2.imshow("If there's no more objects, press d. To add more objects, press space for every turn",confirm_image) #d: 100 space: 32
+    cv2.imshow("from now, add untracked objects by drawing",confirm_image) #d: 100 space: 32
     cha=cv2.waitKey(0)      
     cv2.destroyAllWindows()
     while (cha!=100):
@@ -104,16 +99,33 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
         up=False
         down=False
         # while (termination!=100):
-        cv2.namedWindow("draw with mouse")
-        cv2.setMouseCallback("draw with mouse", draw_box)
-        cv2.imshow("draw with mouse",confirm_image)
+        cv2.namedWindow("If there's no more objects, press d. To add more objects, press space for every turn")
+        cv2.setMouseCallback("If there's no more objects, press d. To add more objects, press space for every turn", draw_box)
+        cv2.imshow("If there's no more objects, press d. To add more objects, press space for every turn",confirm_image)
         cha=cv2.waitKey(1)
         # cv2.destroyAllWindows()
         # cv2.imshow("If there's no more objects, press d. To add more objects, press space for every turn",confirm_image) #d: 100 space: 32
         # cha=cv2.waitKey(1)      #press y: 121 if okay, n:110 if not, e:101 to edit. space for every turn:32 at the end of editing, press e again             
     cv2.destroyAllWindows()
+    filedir=os.getcwd()
+
+    getname=imgname.split('/')
+    name=getname[-1]
+    realname=name.split('.')
+    realname=realname[0]
+
+    txt_name="/info"+".txt"
+    try:
+        f = open(filedir+txt_name, 'a')
+        f.write('\n')
+    except:
+        f = open(filedir+txt_name,'w')
+    f.write("rawdata/"+name)
+    for i in range(len(result_lst)):
+        element=result_lst[i].split(',')
+        f.write(" "+element[0]+" "+element[1]+" "+element[2]+" "+element[3])    
     return result_lst
 
 
-res=haar_training(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/pest_monitoring/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
+res=haar_training(data="/Users/moojin/Dropbox/Codes/python/pest_monitoring/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
 print(res)
