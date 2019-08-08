@@ -39,7 +39,7 @@ def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #
     img_HF = np.real(np.fft.ifft2(img_FFT.copy() * HPF_shift, (M, N)))
     
     gamma1 = 0.3
-    gamma2 = 1.5
+    gamma2 = 1.0
     img_adjusting = gamma1*img_LF[0:rows, 0:cols] + gamma2*img_HF[0:rows, 0:cols]
     
     img_exp = np.expm1(img_adjusting) # exp(x) + 1
