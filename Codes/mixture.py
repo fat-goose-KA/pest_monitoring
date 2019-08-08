@@ -16,6 +16,7 @@ ip=socket.gethostbyname(socket.getfqdn())
 ####################################################################################
 
 def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,distance_threshold,newFile,imageShow=False):  #img_file: file name
+    adc=0
     im_in = cv2.imread(img_file, cv2.IMREAD_COLOR)
     if im_in is None:
         raise NameError('in roi function, incorrect filename, address or empty file')
@@ -91,7 +92,7 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,distance_thre
 
     mv=Cmax
 
-    print(mh,ms,mv)
+    #print(mh,ms,mv)
 
     sdown = ms - 20
     vdown = mv - 20
@@ -146,6 +147,7 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,distance_thre
         x=output[2][i,cv2.CC_STAT_WIDTH]
         y=output[2][i,cv2.CC_STAT_HEIGHT]
         cv2.rectangle(im_origin,(x0,y0),(x0+x,y0+y),(255,0,0),3)
+        adc=adc+1
         flag=True
         flagg=True
         for j in range(len(old_list)):
@@ -167,10 +169,10 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,distance_thre
                 subimg=im_origin2[y0:newy,x0:newx]
             new_data.append(subimg)
             new_list.append(str(x0)+','+str(y0)+','+str(x)+','+str(y))
-    cv2.imshow("otsu",im_origin)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    return light_removed, im_origin
+#    cv2.imshow("otsu",im_origin)
+#    cv2.waitKey(0)
+#    cv2.destroyAllWindows()
+    return light_removed, im_origin, adc
 
 for i in range(800):
     try:
@@ -180,12 +182,13 @@ for i in range(800):
         resp=urlopen(url)
         image = np.asarray(bytearray(resp.read()), dtype="uint8")
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-        cv2.imwrite('0808show/'+str(i)+'.jpg',image)
+        filename='0808show/'+str(i)+'.jpg'
+        cv2.imwrite(filename,image)
         # time.sleep(10)
     except:
         raise NameError('incorrect url. Double check it')    
 
-    nolight, imoriginal=roi_save_new_general('3.jpg',5000,400,10,True)
+    nolight, imoriginal,c=roi_save_new_general(filename,5000,400,10,True)
 
     # img = cv2.imread('/Users/moojin/Dropbox/Codes/python/code_combining/Picture/MJPG/2_1.jpeg')
     #img=cv2.imread(image)
@@ -200,7 +203,7 @@ for i in range(800):
     cv2.destroyAllWindows()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     moth = moth_cascade.detectMultiScale(gray, 1.005, 3)
-    count=0
+    count=c
     for (x,y,w,h) in moth:
         #  print("how many?")
         if (w*h>500):
