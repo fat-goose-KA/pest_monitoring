@@ -119,10 +119,10 @@ def haar_training(data,sizethreshold,distance_threshold,autoSetting=False,hlist=
 
     txt_name=target_dir+"/info"+".txt"
     try:
-        f = open(filedir+txt_name, 'a')
+        f = open(txt_name, 'a')
         f.write('\n')
     except:
-        f = open(filedir+txt_name,'w')
+        f = open(txt_name,'w')
     f.write("rawdata/"+name)
     for i in range(len(result_lst)):
         element=result_lst[i].split(',')
