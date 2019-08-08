@@ -6,37 +6,28 @@ from finalcode import combined_code
 from finalcode import combined_code_id
 from MakeDist import MakeDist
 from MakeDist import MakeDist_id
+from MakeDist import MakeDist_straight
 import csv
 import itertools
 import matplotlib.pyplot as plt     
 import matplotlib as mpl   
 import warnings                                                              
-import numpy as np  
+import numpy as np                                     
 import os
 import platform       
-                       
-warnings.filterwarnings(action="ignore", category=FutureWarning)                             
-                                                    
-#data="C:/Users/master/Desktop/Blue/07.jpg"                                                                                                                 
-# a,b,c,d=combined_code_id(id="mujin",sizethreshold=100,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
-a,b,c,d=combined_code(id="mujin",data="C:/Users/master/Desktop/20190629/Blue/01.jpg" ,thresh_size_max=5000,thresh_size_min=100,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
-print(a,b,c,d)                                                
-# MakeDist_id(id = "mujin",clusterNum=8)                                      
-# MakeDist(clusterNum=8,data="C:/Users/master/Desktop/20190629/Blue/01.jpg")
-_file=["C:/Users/master/Desktop/20190629/Smarf/code_combining/Picture/Adoxophyes orana/", 
-"C:/Users/master/Desktop/20190629/Smarf/code_combining/Picture/Carposina sasakii Matsumura/",
-"C:/Users/master/Desktop/20190629/Smarf/code_combining/Picture/Grapholita molesta/"]
-nlist =[]
-# for _filedir in _file:
-#     _dirlist=os.listdir(_filedir) 
-#     nsum=np.array([0,0,0,0])
-#     for i in _dirlist:
-#         data =_filedir+i
-#         a,b,c,d=combined_code(id="anwl38",data=data,sizethreshold=500,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=False,newFile=True)
-#         nsum = nsum + np.array(b)
-#     nlist.append(nsum)
-#     print(nlist)
-# a,b,c,d=combined_code_id(id="anwls3281",sizethreshold=300,distance_threshold=10,imageShow=False)
-# a,b,c=combined_code_id(data_url="http://211.179.225.31:25000/?action=snapshot",sizethreshold=300,imageShow=True)
+# "C:/Users/master/Desktop/20190629/Smarf/code_combining/Picture/Adoxophyes orana/01_13.jpg"            
+# "C:/Users/master/Desktop/20190629/a.jpg"                        
 
-                                                       
+
+warnings.filterwarnings(action="ignore", category=FutureWarning)  
+
+                                 
+a,b,c,d=combined_code(id="test",data="C:/Users/master/Desktop/20190629/Smarf/code_combining/Picture/Adoxophyes orana/01_13.jpg" ,thresh_size_max=50000,thresh_size_min=50,distance_threshold=15,imageShow=True,autoSetting=True,BugName=["a","b","c","d","new"],saveImage=True,newFile=False)
+print(a,b,c,d)
+         
+  
+
+# MakeDist_id(id = "mujin",clusterNum=8) 
+# MakeDist(clusterNum=8,data="C:/Users/master/Desktop/20190629/Blue/01.jpg")
+
+

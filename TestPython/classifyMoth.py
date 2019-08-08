@@ -19,6 +19,7 @@ from scipy.stats import t
 #    if the function is succeed to run           - return True
 def distanceHSV(a,b):
     h = abs(a[0]-b[0])
+    h = min(h,180-h)
     s = abs(a[1]-b[1])
     v = abs(a[2]-b[2])
     result = ((4*s*h/5)**2+(6*v)**2+(20*s/3.141592)**2)**(1/2)

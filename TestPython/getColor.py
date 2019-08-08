@@ -10,6 +10,7 @@ from roi_save_return import roi_save
 
 def distanceHSV(a,b):
     h = abs(a[0]-b[0])
+    h = min(h,180-h)
     s = abs(a[1]-b[1])
     v = abs(a[2]-b[2])
     result = ((4*s*h/5)**2+(6*v)**2+(20*s/3.141592)**2)**(1/2)
@@ -100,10 +101,11 @@ def getColor2(data,distance_threshold,imageShow,autoSetting=False,clusterNum=5,h
             # print("++++++++++++++++changed h,s,v+++++++++++++++")
 
 
-            sdown = ms - 5
-            vdown = mv - 5
-            sup = ms + 5
-            vup = mv + 5
+            sdown = ms - 10
+            vdown = mv - 10
+            sup = ms + 10
+            vup = mv + 10
+            hlist = [[mh-8,mh+8]]
         # print("")
         # print(hlist, sdown,sup,vdown,vup)
         # print("")
@@ -111,11 +113,14 @@ def getColor2(data,distance_threshold,imageShow,autoSetting=False,clusterNum=5,h
         # mask2 = cv2.inRange(s,1,254)
         mask = cv2.inRange(v,vup,255) + cv2.inRange(v,0,vdown)
         mask2 = cv2.inRange(s,sup,255) + cv2.inRange(s,0,sdown)
-        mask3 = (cv2.inRange(h,mh+5,180)+cv2.inRange(h,0,mh-5))
+        mask3 = cv2.inRange(h,0,92)+ cv2.inRange(h,108,180)
+        for i in hlist:
+            mask3 = mask3 + cv2.inRange(h,0,i[0])+ cv2.inRange(h,i[1],180)
         
         res = cv2.bitwise_and(src, src, mask=mask)
         res = cv2.bitwise_and(res, res, mask=mask2)
         bgr = cv2.bitwise_and(res, res, mask=mask3)
+        gray = cv2.cvtColor(bgr,cv2.COLOR_BGR2GRAY)
 
         if imageShow == True:
             cv2.imshow('bgr',bgr)
@@ -125,24 +130,20 @@ def getColor2(data,distance_threshold,imageShow,autoSetting=False,clusterNum=5,h
         # Convert the image to RGB format
         #for check whether filtering has proccessed well
 
-        kernel = np.ones((1,1),np.uint8)
-        closing = cv2.morphologyEx(bgr, cv2.MORPH_CLOSE, kernel)    
+        kernel = np.ones((2,2),np.uint8)
+        closing = cv2.morphologyEx(gray, cv2.MORPH_CLOSE, kernel)    
         opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
-        if imageShow == True:
-            cv2.imshow('bgr',opening)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
-        bgr = opening
 
         rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
 
         # Reshape for applying Kmean function to the image.
         rgb = rgb.reshape(rgb.shape[0] * rgb.shape[1], 3)
+        gray = gray.reshape(gray.shape[0] * gray.shape[1],1)
         # The masked area has v==0 for HSV value
         k=0
         bdelete = []
-        for i in rgb:
-            if i[2]==0:
+        for i in gray:
+            if i[0]==0:
 
                 # Find the Black point and append in bdelete list
                 bdelete.append(k)

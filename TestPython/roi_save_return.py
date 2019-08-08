@@ -149,9 +149,9 @@ def roi_save(img_file, thresh_size_max, thresh_size_min, distance_threshold,newF
     # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`")
     # print(result)
     # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~`")
-    cv2.imshow("otsu",im_origin)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow("otsu",im_origin)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
     try:
         f = open(filedir+txt_name, 'a')
     except:
@@ -323,9 +323,9 @@ def roi_save_new(img_file, thresh_size_max,thresh_size_min,  distance_threshold,
         f = open(filedir+txt_name, 'a')
     except:
         f = open(filedir+txt_name,'w')
-    cv2.imshow("otsu",im_origin)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow("otsu",im_origin)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
     now=time.localtime()    
     current_time=str(now.tm_year)+"_"+str(now.tm_mon)+"_"+str(now.tm_mday)+"_"+str(now.tm_hour)+"_"+str(now.tm_min)+"_"+str(now.tm_sec)
     f.write(current_time)
@@ -439,9 +439,9 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,  distance_th
     res = cv2.bitwise_and(res, res, mask=mask2)
     bgr = cv2.bitwise_and(res, res, mask=mask3)
     
-    cv2.imshow("realrealreal", bgr)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow("realrealreal", bgr)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     # fill the blank and delete noise
     kernel = np.ones((5,5),np.uint8)
@@ -517,17 +517,17 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,  distance_th
                 subimg=im_origin2[y0:newy,x0:newx]
             new_data.append(subimg)
             new_list.append(str(x0)+','+str(y0)+','+str(x)+','+str(y))
-        if imageShow == True:
-            cv2.imshow("sub",subimg)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+        # if imageShow == True:
+        #     cv2.imshow("sub",subimg)
+        #     cv2.waitKey(0)
+        #     cv2.destroyAllWindows()
     try:
         f = open(filedir+txt_name, 'a')
     except:
         f = open(filedir+txt_name,'w')
-    cv2.imshow("otsu",im_origin)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow("otsu",im_origin)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
     now=time.localtime()    
     current_time=str(now.tm_year)+"_"+str(now.tm_mon)+"_"+str(now.tm_mday)+"_"+str(now.tm_hour)+"_"+str(now.tm_min)+"_"+str(now.tm_sec)
     f.write(current_time)
