@@ -118,7 +118,8 @@ def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #
     threshold_choice="0"
     threshold_threshold=51
     while threshold_flag==True:
-        print("from now, we are going to make background black and target white")
+        print("from now, we are going to make background white and target black")
+        print("please read each window name carefully")
         print("1: threshold +1 ")
         print("2: threshold +10 ")
         print("3: threshold +50 ")
@@ -151,9 +152,9 @@ def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #
         print("current threshold is :"+str(threshold_threshold))
 
         th, im_th = cv2.threshold(result, 253, 255, cv2.THRESH_BINARY)
-        cv2.imshow("line white?", im_th)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows() 
+        # cv2.imshow("line white?", im_th)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows() 
         hsv1 = cv2.cvtColor(im_color, cv2.COLOR_BGR2HSV)
         h1,s1,v1 = cv2.split(hsv1)
         mask1 = cv2.inRange(v1,threshold_threshold,255)
