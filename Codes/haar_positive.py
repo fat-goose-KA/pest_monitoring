@@ -114,8 +114,12 @@ def haar_training(data,sizethreshold,distance_threshold,autoSetting=False,hlist=
     realname=name.split('.')
     realname=realname[0]
 
-    txt_name="/"+realname+".txt"
-    f = open(filedir+txt_name,'w')
+    txt_name="/info"+".txt"
+    try:
+        f = open(filedir+txt_name, 'a')
+        f.write('\n')
+    except:
+        f = open(filedir+txt_name,'w')
     f.write("rawdata/"+name)
     for i in range(len(result_lst)):
         element=result_lst[i].split(',')
