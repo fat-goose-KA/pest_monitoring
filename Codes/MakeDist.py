@@ -79,23 +79,28 @@ def id_to_image(id):
         if ip is None:
             print("wrong ip address")
         # url = "http://"+ip+"/?action=snapshot"
-        url = "http://"+ip+"camera/jpeg"
+        url = "http://"+ip+"/camera/jpeg"
         resp=urlopen(url)
         image = np.asarray(bytearray(resp.read()), dtype="uint8")
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-	# return the image
+    # return the image
+    
+
+
+    
         return image
     except:
         raise NameError('incorrect url. Double check it')
 
 
-def MakeDist(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_min=100,sup=254,sdown=1,vup=254,vdown=1):
+def MakeDist(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_min=100,sup=254,sdown=1,vup=254,vdown=1, newFile= True):
 
     dirName=os.getcwd()
     strlen=len(dirName)
     dirName = dirName[0:strlen-6]
     if platform.system() == "Windows":
         dirName=  dirName.replace("\\","/")
+
     # Change the direcoty to real directory of data
     if clusterNum<10:
         directory = dirName + "/MothData/MothData" + "0" + str(clusterNum) + ".csv"
@@ -180,8 +185,7 @@ def MakeDist_id(clusterNum,id,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     filedir=filedir +outputFileName
 
     cv2.imwrite(filedir, data)
-    print("befores")
-    MakeDist(clusterNum,filedir,hlist,sup,sdown,vup,vdown)
+    MakeDist(clusterNum=clusterNum,data=filedir,hlist=hlist,sup=sup,sdown=sdown,vup=vup,vdown=vdown)
 
     
 def MakeDist_straight(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_min=100,sup=254,sdown=1,vup=254,vdown=1):
@@ -199,8 +203,7 @@ def MakeDist_straight(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thres
     
     # Set the initial variable
     dist_avg_data=[]
-    img_file = data
-    im_in = cv2.imread(img_file, cv2.IMREAD_COLOR)
+    im_in = cv2.imread(data, cv2.IMREAD_COLOR)
     if im_in is None:
         raise NameError('in roi function, incorrect filename, address or empty file')
 
@@ -279,8 +282,6 @@ def MakeDist_straight(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thres
 
     mv=Cmax
 
-    print(mh,ms,mv)
-    # print("++++++++++++++++changed h,s,v+++++++++++++++")
 
     sdown = ms - 20
     vdown = mv - 20
