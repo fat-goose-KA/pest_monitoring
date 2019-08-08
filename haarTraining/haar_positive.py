@@ -115,18 +115,19 @@ def haar_training(data,sizethreshold,distance_threshold,autoSetting=False,hlist=
     realname=realname[0]
 
     current_dir=os.getcwd()
-    target_dir=current_dir+"/positive/rawdata"
+    target_dir=current_dir+"/positive"
 
     txt_name=target_dir+"/info"+".txt"
     try:
         f = open(txt_name, 'a')
-        f.write('\n')
     except:
         f = open(txt_name,'w')
     f.write("rawdata/"+name)
     for i in range(len(result_lst)):
         element=result_lst[i].split(',')
         f.write(" "+element[0]+" "+element[1]+" "+element[2]+" "+element[3])    
+    f.write('\n')
+    f.close()
     return result_lst
 
 current_dir=os.getcwd()
