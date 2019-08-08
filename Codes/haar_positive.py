@@ -17,7 +17,7 @@ ix,iy=-1,-1
 down=False
 up=False
 result_lst=[]
-def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
+def haar_training(data,sizethreshold,distance_threshold,autoSetting=False,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1
 ,Save=False,imageShow=False,BugName=["1","2","3","4"],newFile=False,saveImage=False):
     global ix
     global iy
@@ -115,5 +115,5 @@ def haar_training(id,data,sizethreshold,distance_threshold,autoSetting=False,hli
     return result_lst
 
 
-res=haar_training(id="anwls328",data="/Users/moojin/Dropbox/Codes/python/pest_monitoring/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
+res=haar_training(data="/Users/moojin/Dropbox/Codes/python/pest_monitoring/Picture/MJPG/3_2.png",sizethreshold=500,distance_threshold=10,imageShow=False,BugName=["a","b","c","d"])
 print(res)

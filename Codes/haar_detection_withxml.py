@@ -14,7 +14,7 @@ cv2.imshow("before",img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-moth = moth_cascade.detectMultiScale(gray, 1.001, 5)
+moth = moth_cascade.detectMultiScale(gray, 1.001, 2)
 count=0
 for (x,y,w,h) in moth:
    #  print("how many?")
