@@ -76,7 +76,10 @@ def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #
         print("6: threshold -50 ")
         print("7: prior state")
         print("8: done")
-        black_line_choice=raw_input()
+        try:
+            black_line_choice=raw_input()
+        except:
+            black_line_choice=str(input())            
         print("you chose"+black_line_choice)
         if(black_line_choice=="8"):
             black_line_flag=False
@@ -123,7 +126,12 @@ def training_data_making(img_file, thresh_size, distance_threshold, newFile):  #
         print("5: threshold -10 ")
         print("6: threshold -50 ")
         print("7: done")
-        threshold_choice=raw_input()
+        try:
+            threshold_choice=raw_input()
+        except:
+            threshold_choice=str(input())
+
+        
         print("you chose"+threshold_choice)
         if(threshold_choice=="7"):
             threshold_flag=False
