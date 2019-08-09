@@ -22,9 +22,12 @@ warnings.filterwarnings(action="ignore", category=FutureWarning)
                                                     
 #data="C:/Users/master/Desktop/Blue/07.jpg"                                                                                                                 
 # a,b,c,d=combined_code_id(id="mujin",sizethreshold=100,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
-a,b,c,d=combined_code(id="anwls328",data="C:/Users/master/Desktop/20190629/Blue/01.jpg" ,thresh_size_max=5000,thresh_size_min=100,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
+a,b,c,d=combined_code(id="anwls328",data="C:/Users/master/Desktop/20190629/01.jpg" ,thresh_size_max=5000,thresh_size_min=100,distance_threshold=10,imageShow=False,autoSetting=True,BugName=["a","b","c","d"],saveImage=True,newFile=True)
 print(a,b,c,d)                                                
 # MakeDist_id(id = "mujin",clusterNum=8)                                      
-# MakeDist(clusterNum=8,data="C:/Users/master/Desktop/20190629/Blue/01.jpg")
+# MakeDist(clusterNum=8,data="C:/Users/master/Desktop/20190629/test3.jpg")
+# MakeDist_straight(clusterNum=9,data="C:/Users/master/Desktop/20190629/Smarf/Picture/Carposina sasakii Matsumura/03_10.jpg")
 
-
+# StabilizeDist(clusterNum=9)
+                                           
+ 

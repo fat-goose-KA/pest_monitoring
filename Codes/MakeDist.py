@@ -99,9 +99,9 @@ def MakeDist(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thresh_size_mi
 
     # Change the direcoty to real directory of data
     if clusterNum<10:
-        directory = dirName + "/MothData/MothData" + "0" + str(clusterNum) + ".csv"
+        directory = dirName + "/MothDataHsv/MothData" + "0" + str(clusterNum) + ".csv"
     else :
-        directory = dirName + "/MothData/MothData" + str(clusterNum) + ".csv"
+        directory = dirName + "/MothDataHsv/MothData" + str(clusterNum) + ".csv"
     
     # Set the initial variable
     dist_avg_data=[]
@@ -193,9 +193,9 @@ def MakeDist_straight(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thres
         dirName=  dirName.replace("\\","/")
     # Change the direcoty to real directory of data
     if clusterNum<10:
-        directory = dirName + "/MothData/MothData" + "0" + str(clusterNum) + ".csv"
+        directory = dirName + "/MothDataHsv/MothData" + "0" + str(clusterNum) + ".csv"
     else :
-        directory = dirName + "/MothData/MothData" + str(clusterNum) + ".csv"
+        directory = dirName + "/MothDataHsv/MothData" + str(clusterNum) + ".csv"
     
     # Set the initial variable
     dist_avg_data=[]
@@ -301,7 +301,10 @@ def MakeDist_straight(clusterNum,data,hlist=[[0,180]],thresh_size_max=5000,thres
     opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
     th, im_otsu = cv2.threshold(opening, 10, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-    
+    cv2.imshow("realrealreal", im_otsu)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
     rgb = cv2.cvtColor(result, cv2.COLOR_BGR2HSV)
 
     # Reshape for applying Kmean function to the image.

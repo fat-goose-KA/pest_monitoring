@@ -27,7 +27,7 @@ def distanceHSV(a,b):
 def StabilizeDist(clusterNum):
     strlen=len(os.getcwd())
     if clusterNum <10:
-        filedir=os.getcwd()[0:strlen-6]+'/MothData/'+'Mothdata' +"0"+ str(clusterNum) + ".csv"
+        filedir=os.getcwd()[0:strlen-6]+'/MothDataHsv/'+'Mothdata' +"0"+ str(clusterNum) + ".csv"
     else :
         filedir=os.getcwd()[0:strlen-6]+'/MothDataHsv/'+'Mothdata' + str(clusterNum) + ".csv"
     f=open(filedir,'r')

@@ -46,9 +46,9 @@ def saveData(data, clusterNum,dirName=os.getcwd()):
     
     # Set the file dierectory
     if clusterNum<10:
-        openFileName = dirName +"/MothData/MothData" +"0" + str(clusterNum) + ".csv"
+        openFileName = dirName +"/MothDataHsv/MothData" +"0" + str(clusterNum) + ".csv"
     else:
-        openFileName = dirName +"/MothData/MothData" + str(clusterNum) + ".csv"
+        openFileName = dirName +"/MothDataHsv/MothData" + str(clusterNum) + ".csv"
 
     if platform.system() == "Windows":
         f=open(openFileName, 'a',newline='')

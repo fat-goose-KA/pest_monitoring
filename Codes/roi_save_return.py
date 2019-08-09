@@ -21,9 +21,7 @@ def roi_save(img_file, thresh_size_max, thresh_size_min, distance_threshold,newF
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
     th, im_th = cv2.threshold(im_in, 150, 255, cv2.THRESH_BINARY_INV)
-    cv2.imshow("Foreground", im_th)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows() 
+    
     im_floodfill = im_in.copy()
     h, w = im_floodfill.shape[:2]
     mask = np.zeros((h+2, w+2), np.uint8)
@@ -34,26 +32,20 @@ def roi_save(img_file, thresh_size_max, thresh_size_min, distance_threshold,newF
     # cv2.imshow("Foreground", im_out)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()     #for check whether filtering has proccessed well
-    cv2.imshow("Foreground", im_out)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows() 
+    
     th, im_twocol = cv2.threshold(im_out, 150, 255, cv2.THRESH_BINARY)   ## use  filter again
 
     ######################################################
     # cv2.imshow("adfadad", im_twocol)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()     #for check whether filtering has proccessed well
-    cv2.imshow("Foreground", im_twocol)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows() 
+    
     kernel = np.ones((5,5),np.uint8)
     closing = cv2.morphologyEx(im_twocol, cv2.MORPH_CLOSE, kernel)    
     opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
     th, im_otsu = cv2.threshold(closing, 10, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-    cv2.imshow("Foreground", im_otsu)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows() 
+   
 
 
     output= cv2.connectedComponentsWithStats(im_otsu) 
@@ -414,7 +406,6 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,  distance_th
 
     mv=Cmax
 
-    print(mh,ms,mv)
     # print("++++++++++++++++changed h,s,v+++++++++++++++")
 
     sdown = ms - 20
@@ -429,15 +420,12 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,  distance_th
     res = cv2.bitwise_and(res, res, mask=mask2)
     bgr = cv2.bitwise_and(res, res, mask=mask3)
     
-    # cv2.imshow("realrealreal", bgr)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
+   
     # fill the blank and delete noise
     kernel = np.ones((5,5),np.uint8)
     closing = cv2.morphologyEx(bgr, cv2.MORPH_CLOSE, kernel)    
     opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
-
+    
     th, im_otsu = cv2.threshold(opening, 10, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     
     output= cv2.connectedComponentsWithStats(im_otsu) # 4 or 8
@@ -515,9 +503,9 @@ def roi_save_new_general(img_file, thresh_size_max,thresh_size_min,  distance_th
         f = open(filedir+txt_name, 'a')
     except:
         f = open(filedir+txt_name,'w')
-    # cv2.imshow("otsu",im_origin)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    cv2.imshow("otsu",im_origin)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
     now=time.localtime()    
     current_time=str(now.tm_year)+"_"+str(now.tm_mon)+"_"+str(now.tm_mday)+"_"+str(now.tm_hour)+"_"+str(now.tm_min)+"_"+str(now.tm_sec)
     f.write(current_time)

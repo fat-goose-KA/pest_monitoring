@@ -15,37 +15,6 @@ def distanceHSV(a,b):
     result = ((4*s*h/5)**2+(6*v)**2+(20*s/3.141592)**2)**(1/2)
     return result
 
-def centroid_histogram(clt):
-    # grab the number of different clusters and create a histogram
-    # based on the number of pixels assigned to each cluster
-    numLabels = np.arange(0, len(np.unique(clt.labels_)) + 1)
-    (hist, _) = np.histogram(clt.labels_, bins=numLabels)
-
-    # normalize the histogram, such that it sums to one
-    hist = hist.astype("float")
-    hist /= hist.sum()
-
-    # return the histogram
-    return hist
-
-def plot_colors(hist, centroids):
-    # initialize the bar chart representing the relative frequency
-    # of each of the colors
-    bar = np.zeros((50, 300, 3), dtype="uint8")
-    startX = 0
-
-    # loop over the percentage of each cluster and the color of
-    # each cluster
-    for (percent, color) in zip(hist, centroids):
-        # plot the relative percentage of each cluster
-        endX = startX + (percent * 300)
-        cv2.rectangle(bar, (int(startX), 0), (int(endX), 50),
-                      color.astype("uint8").tolist(), -1)
-        startX = endX
-
-    # return the bar chart
-    return bar 
-
 def getColor2(data,distance_threshold,imageShow,autoSetting=False,clusterNum=5,hlist=[[0,180]],sup=254,sdown=1,vup=254,vdown=1):
     result=[]
     deletenum=[]
@@ -96,20 +65,12 @@ def getColor2(data,distance_threshold,imageShow,autoSetting=False,clusterNum=5,h
 
             mv=Cmax
 
-            # print(mh,ms,mv)
-            # print("++++++++++++++++changed h,s,v+++++++++++++++")
-
 
             sdown = ms - 10
             vdown = mv - 10
             sup = ms + 10
             vup = mv + 10
             hlist = [[mh-8,mh+8]]
-        # print("")
-        # print(hlist, sdown,sup,vdown,vup)
-        # print("")
-        # mask = cv2.inRange(v,1,254)
-        # mask2 = cv2.inRange(s,1,254)
         mask = cv2.inRange(v,vup,255) + cv2.inRange(v,0,vdown)
         mask2 = cv2.inRange(s,sup,255) + cv2.inRange(s,0,sdown)
         mask3 = cv2.inRange(h,0,92)+ cv2.inRange(h,108,180)
@@ -127,7 +88,7 @@ def getColor2(data,distance_threshold,imageShow,autoSetting=False,clusterNum=5,h
             cv2.destroyAllWindows()
         # openCV get a image as a BGR format
         # Convert the image to RGB format
-        #for check whether filtering has proccessed well
+        # for check whether filtering has proccessed well
 
         kernel = np.ones((2,2),np.uint8)
         closing = cv2.morphologyEx(gray, cv2.MORPH_CLOSE, kernel)    
@@ -159,21 +120,7 @@ def getColor2(data,distance_threshold,imageShow,autoSetting=False,clusterNum=5,h
         # Calculate the Color Clusters of Image by the KMeans Class.
         clt = KMeans(n_clusters = clusterNum)
         clt.fit(rgb2)
-
-        #Represent the time to finish the clustering
-        # print("time - clustering is finished :", time.time() - start)
         centers = []
-
-
-        # # show our color bart
-        hist = centroid_histogram(clt)
-        # bar = plot_colors(hist, clt.cluster_centers_)
-        
-        # if imageShow==True:
-        #     plts.figure()
-        #     plts.axis("off")
-        #     plts.imshow(bar)
-        #     plts.show()
 
         clusterData=[]
         cltnum=0
